@@ -24,12 +24,18 @@
     <ClCompile Include="ListaCanciones.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Mp3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cancion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ListaCanciones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Mp3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

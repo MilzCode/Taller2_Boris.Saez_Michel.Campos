@@ -1,9 +1,17 @@
 #include "Cancion.h"
+#include "Mp3.h"//necesario para que funcione s2ws
 
-wstring Cancion::stringToWs(string str)
+//Un metodo para convertir de string a wstring
+std::wstring s2ws(const std::string& s)
 {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
-	return conv.from_bytes(str);
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
 }
 
 Cancion::Cancion()
@@ -45,8 +53,11 @@ int Cancion::getReproducciones()
 	return reproducciones;
 }
 
-wstring Cancion::getCancion()
+wstring Cancion::getCancionWs()
 {
-	wstring _titulo = stringToWs(titulo);
-	return directorioCanciones.append(_titulo.append(formatoMp3));
+	string cancion = directorioCanciones + titulo + formato;
+	std::wstring stemp = s2ws(cancion);
+	return stemp;
 }
+
+

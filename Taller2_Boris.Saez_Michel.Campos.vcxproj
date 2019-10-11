@@ -153,11 +153,13 @@
   <ItemGroup>
     <ClCompile Include="Cancion.cpp" />
     <ClCompile Include="ListaCanciones.cpp" />
+    <ClCompile Include="Mp3.cpp" />
     <ClCompile Include="Taller2_Boris.Saez_Michel.Campos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cancion.h" />
     <ClInclude Include="ListaCanciones.h" />
+    <ClInclude Include="Mp3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <codecvt>//para convertir a wstring
+#include <iostream>
+
 
 using namespace std;
 class Cancion
@@ -13,11 +15,11 @@ private:
 	string genero;
 	string anno;
 	int reproducciones;
-	const wchar_t formatoMp3[4] = { '.','m', 'p', '3' };
-	wstring stringToWs(string str);
+	const string formato = ".mp3";// NO CAMBIAR ESTO!!
+
 
 	//para Cambiar directorio de cancion llenar "" pero en vez de <\> poner </> ej: C:/hola/  , no olividar ademas dejar / al final
-	wstring directorioCanciones = L"";
+	string directorioCanciones = "";
 
 public:
 	Cancion();
@@ -27,7 +29,7 @@ public:
 	string getGenero();
 	string getAnno();
 	int getReproducciones();
-	wstring getCancion();
+	wstring getCancionWs();
 
 };
 
