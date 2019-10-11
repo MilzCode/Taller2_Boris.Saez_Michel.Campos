@@ -15,7 +15,8 @@ private:
 	int reproducciones;
 	const wchar_t formatoMp3[4] = { '.','m', 'p', '3' };
 	wstring stringToWs(string str);
-	//para Cambiar directorio de cancion llenar "" pero en vez de <\> poner / ej: C:/hola/  , ademas dejar / al final
+
+	//para Cambiar directorio de cancion llenar "" pero en vez de <\> poner </> ej: C:/hola/  , no olividar ademas dejar / al final
 	wstring directorioCanciones = L"";
 
 public:
