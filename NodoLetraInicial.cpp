@@ -12,9 +12,9 @@ string NodoLetraInicial::getLetra()
 	return letra;
 }
 //retorna el nodo siguiente si no existe retorna NULL
-NodoLetraInicial NodoLetraInicial::getSiguienteNodo()
+NodoLetraInicial* NodoLetraInicial::getSiguienteNodo()
 {
-	return *siguienteLetra;
+	return siguienteLetra;
 }
 
 //cambia el nodo siguiente enviando la direccion del nuevo nodo por parametro

@@ -16,12 +16,13 @@ public:
 
 	string getLetra();
 
-	NodoLetraInicial getSiguienteNodo();
+	NodoLetraInicial* getSiguienteNodo();
 
 	bool setSiguienteNodo(NodoLetraInicial*);
 
 	//de aca abajo estaran los contenidos del nodo Letra Inicial
 
+	//OJOOOOOO QUIZA ESTE METODO NO SIRVA
 	//devuelve -1 sino encuentra alguna cancion
 	int buscarCancion(string tituloCancion);
 
