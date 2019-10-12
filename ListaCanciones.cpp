@@ -1,6 +1,15 @@
 #include "ListaCanciones.h"
 
+//metodo para lectura de canciones asi todos los titulos quedaran en mayuscula
+template<typename C>
+void toUpper2(basic_string<C>& s, const locale& loc = locale()) {
+	typename basic_string<C>::iterator p;
+	for (p = s.begin(); p != s.end(); ++p) {
+		*p = use_facet<ctype<C> >(loc).toupper(*p);
+	}
+}
 
+//abre archivo de canciones
 bool ListaCanciones::lecturaCanciones(string nombreArchivo)
 {
 	ifstream archivo;
@@ -29,6 +38,7 @@ bool ListaCanciones::lecturaCanciones(string nombreArchivo)
 		getline(archivo, genero, ',');
 		getline(archivo, anno, ',');
 		getline(archivo, _reproducciones);
+		toUpper2(titulo);
 
 		try {
 			reproducciones = stoi(_reproducciones);

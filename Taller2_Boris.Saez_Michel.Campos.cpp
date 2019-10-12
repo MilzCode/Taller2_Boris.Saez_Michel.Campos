@@ -6,12 +6,8 @@ using namespace std;
 int main()
 {
 	CoInitialize(NULL);
-	int status = 0;
-	ListaCanciones* canciones = new ListaCanciones();
-	
-	cout << canciones->getCancion(2).getTitulo() << endl;
-	wcout << canciones->getCancion(2).getCancionWs() << endl;
 
+	ListaCanciones* canciones = new ListaCanciones();
 
 	Mp3 mp3;
 

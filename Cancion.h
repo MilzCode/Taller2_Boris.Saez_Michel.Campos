@@ -30,6 +30,7 @@ public:
 	string getAnno();
 	int getReproducciones();
 	wstring getCancionWs();
+	bool setDirectorioCanciones(string directorio);
 
 };
 

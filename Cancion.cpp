@@ -60,4 +60,19 @@ wstring Cancion::getCancionWs()
 	return stemp;
 }
 
+/*metodo para modificar el directorio de las canciones
+ *	//para Cambiar directorio de cancion llenar "" 
+ *pero en vez de <\> poner </> ej: C:/hola/  , no olividar ademas dejar / al final
+ */
+bool Cancion::setDirectorioCanciones(string directorio)
+{
+	try {
+		directorioCanciones = directorio;
+		return true;
+	}
+	catch (...) {
+		return false;
+	}
+}
+
 
