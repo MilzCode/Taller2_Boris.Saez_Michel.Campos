@@ -158,7 +158,9 @@
     <ClCompile Include="ListaTop10.cpp" />
     <ClCompile Include="Mp3.cpp" />
     <ClCompile Include="NodoLetraInicial.cpp" />
+    <ClCompile Include="Sistema.cpp" />
     <ClCompile Include="Taller2_Boris.Saez_Michel.Campos.cpp" />
+    <ClCompile Include="VerificadorIngreso.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cancion.h" />
@@ -168,6 +170,8 @@
     <ClInclude Include="ListaTop10.h" />
     <ClInclude Include="Mp3.h" />
     <ClInclude Include="NodoLetraInicial.h" />
+    <ClInclude Include="Sistema.h" />
+    <ClInclude Include="VerificadorIngreso.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

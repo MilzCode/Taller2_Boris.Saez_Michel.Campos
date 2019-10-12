@@ -24,7 +24,7 @@ bool NodoLetraInicial::setSiguienteNodo(NodoLetraInicial*nodo)
 	return true;
 }
 
-int NodoLetraInicial::buscarCancion(string tituloCancion)
+/*int NodoLetraInicial::buscarCancion(string tituloCancion)
 {
 	if (top == NULL) {
 		return -1;
@@ -45,7 +45,7 @@ int NodoLetraInicial::buscarCancion(string tituloCancion)
 		c++;
 	}
 	return -1;
-}
+}*/
 
 //inserta una cancion en orden segun el titulo
 void NodoLetraInicial::agregarCancion(Cancion& cancion)
@@ -95,7 +95,7 @@ void NodoLetraInicial::agregarCancion(Cancion& cancion)
 	}
 }
 
-Cancion* NodoLetraInicial::getCancion(int pos)
+/*Cancion* NodoLetraInicial::getCancion(int pos)
 {
 	if (top == NULL) {
 		return NULL;
@@ -117,5 +117,28 @@ Cancion* NodoLetraInicial::getCancion(int pos)
 	}
 	return NULL;
 	
+}*/
+
+Cancion* NodoLetraInicial::getCancion(string titulo)
+{
+	if (top == NULL) {
+		return NULL;
+	}
+
+	nodosCanciones* n = top;
+
+	while (true)
+	{
+		if (n->Cancion->getTitulo().compare(titulo) == 0) {
+			return n->Cancion;
+		}
+		n = n->siguiente;
+
+		if (n == NULL) {
+			break;
+		}
+		
+	}
+	return NULL;
 }
 

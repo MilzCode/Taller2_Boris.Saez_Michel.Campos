@@ -1,23 +1,28 @@
 #include <iostream>
 #include "ListaCanciones.h"
-#include "Mp3.h"
+#include "Sistema.h"
+
 using namespace std;
 
 int main()
 {
 	CoInitialize(NULL);
 
-	ListaCanciones* canciones = new ListaCanciones();
+	//ListaCanciones* canciones = new ListaCanciones();
+	Sistema* sis = new Sistema();
 
-	Mp3 mp3;
+	sis->ejecutarSistema();
 
-	if (mp3.Load((canciones->getCancion(2).getCancionWs()).c_str()))
+
+	//Mp3 mp3;
+
+	/*if (mp3.Load((canciones->getCancion(1).getCancionWs()).c_str()))
 	{
 		mp3.Play();
-		cout << "\nReproduciendo " << canciones->getCancion(2).getTitulo() << endl;
+		cout << "\nReproduciendo " << canciones->getCancion(1).getTitulo() << endl;
 		system("pause");
 	}
 	else {
 		cout << "\nCancion No encontrada" << endl;
-	}
+	}*/
 }

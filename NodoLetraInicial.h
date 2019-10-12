@@ -24,13 +24,16 @@ public:
 
 	//OJOOOOOO QUIZA ESTE METODO NO SIRVA
 	//devuelve -1 sino encuentra alguna cancion
-	int buscarCancion(string tituloCancion);
+	//int buscarCancion(string tituloCancion);
 
 	//Agrega Cancion En orden alfabetico
 	void agregarCancion(Cancion& cancion);
 	
+	//retorna puntero a cancion OJO QUIZA ESTE METODO NO SIRVA
+	//Cancion* getCancion(int pos);
+
 	//retorna puntero a cancion
-	Cancion* getCancion(int pos);
+	Cancion* getCancion(string titulo);
 
 private:
 	string letra;

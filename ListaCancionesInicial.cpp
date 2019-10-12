@@ -15,6 +15,26 @@ ListaTop10& ListaCancionesInicial::getListaTop10()
 	return *listaTop10;
 }
 
+Cancion* ListaCancionesInicial::getCancion(string nombre)
+{
+	string letra = nombre;
+	letra = letra.at(0);
+	NodoLetraInicial* n = primer;
+	if (primer == NULL) {
+		return NULL;
+	}
+	while (true) {
+		if (n->getLetra().compare(letra) == 0) {
+			return  n->getCancion(nombre);
+		}
+		n = n->getSiguienteNodo();
+		if (n == NULL) {
+			break;
+		}
+	}
+	return NULL;
+}
+
 //metodo para lectura de canciones asi todos los titulos quedaran en mayuscula
 template<typename C>
 void toUpper2(basic_string<C>& s, const locale& loc = locale()) {
@@ -80,11 +100,10 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 {
 	Cancion* cancioncita = new Cancion(_titulo, _artista, _genero, _anno, _reproducciones);
 
-	listaTop10->agregarCancionT10(cancioncita);
+	//listaTop10->agregarCancionT10(cancioncita);
 
 	string letra = _titulo;
 	letra = letra.at(0);	
-	cout << letra << endl;
 
 	NodoLetraInicial* buscando = primer;
 

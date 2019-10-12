@@ -18,6 +18,7 @@ class ListaCancionesInicial
 public:
 	ListaCancionesInicial();
 	ListaTop10& getListaTop10();
+	Cancion* getCancion(string nombre);
 
 private:
 
