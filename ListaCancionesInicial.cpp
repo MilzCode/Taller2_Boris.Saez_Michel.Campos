@@ -80,6 +80,8 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 {
 	Cancion* cancioncita = new Cancion(_titulo, _artista, _genero, _anno, _reproducciones);
 
+	listaTop10->agregarCancionT10(cancioncita);
+
 	string letra = _titulo;
 	letra = letra.at(0);	
 	cout << letra << endl;
