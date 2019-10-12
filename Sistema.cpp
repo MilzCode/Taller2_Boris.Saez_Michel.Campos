@@ -32,14 +32,76 @@ void Sistema::ejecutarSistema()
 
 				cout << cancion << endl;
 
-				Cancion* cancioncita = listaCanciones->getCancion(cancion);
+				NodoLetraInicial* cancioncitaNodoLetra;
+				nodosCanciones* cancioncitaNodo;
+				Cancion* cancioncita;
+				try {
+					cancioncitaNodoLetra = listaCanciones->getCancion(cancion);
+					if (cancioncitaNodoLetra == NULL) {
+						cout << "No existen Canciones que inicien con esa Letra" << endl;
+						system("pause");
+						break;
+					}
+					cancioncitaNodo = cancioncitaNodoLetra->getCancionNodo(cancion);
+					if (cancioncitaNodo == NULL) {
+						cout << "No existe la Cancion " <<cancion<<" en el repertorio"<< endl;
+						system("pause");
+						break;
+					}
+					
+					cancioncita = cancioncitaNodo->Cancion;
+				}
+				catch (...) {
+					break;
+				}
+
+
 				if (cancioncita == NULL) {
 					cout << "Cancion " << cancion << " NO encontrada..." << endl;
 					system("pause");
 				}
 				else {
 					reproductor(cancioncita);
+					int opcionControles;
+					while (true) {
+						opcionControles = verificadorIngreso(3);
+						//salir
+						if (opcionControles == 3) {
+							mp3.Stop();
+							break;
+						}
+						//siguiente
+						if (opcionControles == 1) {
+							mp3.Stop();
+							if (cancioncitaNodo->siguiente != NULL) {
+								cancioncitaNodo = cancioncitaNodo->siguiente;
+							}
+							else {
+								cancioncitaNodoLetra = cancioncitaNodoLetra->getSiguienteNodo();
+								if (cancioncitaNodoLetra == NULL) {
+									cancioncitaNodoLetra = listaCanciones->getPrimeraLetra();
+								}
+								cancioncitaNodo = cancioncitaNodoLetra->getCancionNodoPrimera();
+							}
+							reproductor(cancioncitaNodo->Cancion);
+						}
+						//anterior
+						if (opcionControles == 2) {
+							mp3.Stop();
+							if (cancioncitaNodo->anterior != NULL) {
+								cancioncitaNodo = cancioncitaNodo->anterior;
+							}
+							else {
+								cancioncitaNodoLetra = cancioncitaNodoLetra->getAnteriorNodo();
+								if (cancioncitaNodoLetra == NULL) {
+									cancioncitaNodoLetra = listaCanciones->getUltimaLetra();
+								}
+								cancioncitaNodo = cancioncitaNodoLetra->getCancionNodoUltima();
+							}
+							reproductor(cancioncitaNodo->Cancion);
+						}
 
+					}
 				}
 			break;
 			}
@@ -126,10 +188,10 @@ void Sistema::printMenus(float imprimir)
 	}
 }
 
-void Sistema::reproductor(Cancion* cancioncita)
+int Sistema::reproductor(Cancion* cancioncita)
 {
-	wstring cancion = cancioncita->getCancionWs();
-	if (mp3.Load( cancion.c_str() ) )
+	wstring cancionWs = cancioncita->getCancionWs();
+	if (mp3.Load( cancionWs.c_str() ) )
 
 	{
 
@@ -138,10 +200,12 @@ void Sistema::reproductor(Cancion* cancioncita)
 		cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
 		cout << "DE : " << cancioncita->getArtista() <<"\n"<< endl;
 		printMenus(1.5);
-		system("pause");
-
+		
+		return 1;
 	}
 	else {
 		cout << "\nCancion No encontrada" << endl;
+		system("pause");
+		return 0;
 	}
 }

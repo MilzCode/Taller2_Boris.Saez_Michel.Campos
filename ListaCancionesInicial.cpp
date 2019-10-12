@@ -15,7 +15,7 @@ ListaTop10& ListaCancionesInicial::getListaTop10()
 	return *listaTop10;
 }
 
-Cancion* ListaCancionesInicial::getCancion(string nombre)
+NodoLetraInicial* ListaCancionesInicial::getCancion(string nombre)
 {
 	string letra = nombre;
 	letra = letra.at(0);
@@ -25,7 +25,7 @@ Cancion* ListaCancionesInicial::getCancion(string nombre)
 	}
 	while (true) {
 		if (n->getLetra().compare(letra) == 0) {
-			return  n->getCancion(nombre);
+			return  n;
 		}
 		n = n->getSiguienteNodo();
 		if (n == NULL) {
@@ -33,6 +33,16 @@ Cancion* ListaCancionesInicial::getCancion(string nombre)
 		}
 	}
 	return NULL;
+}
+
+NodoLetraInicial* ListaCancionesInicial::getPrimeraLetra()
+{
+	return primer;
+}
+
+NodoLetraInicial* ListaCancionesInicial::getUltimaLetra()
+{
+	return ultima;
 }
 
 //metodo para lectura de canciones asi todos los titulos quedaran en mayuscula
@@ -82,7 +92,7 @@ bool ListaCancionesInicial::lecturaCanciones(string nombreArchivo)
 		}
 		catch (...) {
 			lecturaCorrecta = false;
-			cout << "Error en linea : " << linea << " Archivo : " << nombreArchivo << endl;
+			cout << "Error en linea : " << linea+1 << " Archivo : " << nombreArchivo << endl;
 			system("pause");
 		}
 		if (lecturaCorrecta) {
@@ -111,8 +121,9 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 	if (buscando == NULL) {
 		NodoLetraInicial* n = new NodoLetraInicial(letra);
 		primer = n;
+		ultima = n;
 		primer->setSiguienteNodo(NULL);
-
+		primer->setAnteriorNodo(NULL);
 		n->agregarCancion(*cancioncita);
 
 		return;
@@ -120,7 +131,9 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 
 	if (buscando->getLetra().compare(letra) > 0) {
 		NodoLetraInicial* n = new NodoLetraInicial(letra);
+		primer->setAnteriorNodo(n);
 		n->setSiguienteNodo(primer);
+		n->setAnteriorNodo(NULL);
 		primer = n;
 
 		n->agregarCancion(*cancioncita);
@@ -137,8 +150,11 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 		if (buscando->getLetra().compare(letra) < 0) {
 			if (buscando->getSiguienteNodo() == NULL) {
 				NodoLetraInicial* n = new NodoLetraInicial(letra);
+				n->setAnteriorNodo(buscando);
+
 				buscando->setSiguienteNodo(n);
 				n->setSiguienteNodo(NULL);
+				ultima = n;
 
 				n->agregarCancion(*cancioncita);
 
@@ -148,7 +164,13 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 			else if (buscando->getSiguienteNodo()->getLetra().compare(letra) > 0) {
 				NodoLetraInicial* n = new NodoLetraInicial(letra);
 				n->setSiguienteNodo(buscando->getSiguienteNodo());
-
+				if (buscando->getSiguienteNodo() != NULL) {
+					buscando->getSiguienteNodo()->setAnteriorNodo(n);
+				}
+				else {
+					ultima = n;
+				}
+				n->setAnteriorNodo(buscando);
 				buscando->setSiguienteNodo(n);
 
 				n->agregarCancion(*cancioncita);

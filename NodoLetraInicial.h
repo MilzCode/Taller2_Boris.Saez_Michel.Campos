@@ -5,6 +5,8 @@
 struct nodosCanciones {
 	Cancion* Cancion;
 	nodosCanciones* siguiente;
+	nodosCanciones* anterior;
+
 };
 
 class NodoLetraInicial
@@ -17,28 +19,29 @@ public:
 	string getLetra();
 
 	NodoLetraInicial* getSiguienteNodo();
+	NodoLetraInicial* getAnteriorNodo();
 
 	bool setSiguienteNodo(NodoLetraInicial*);
+	bool setAnteriorNodo(NodoLetraInicial*);
 
 	//de aca abajo estaran los contenidos del nodo Letra Inicial
 
-	//OJOOOOOO QUIZA ESTE METODO NO SIRVA
-	//devuelve -1 sino encuentra alguna cancion
-	//int buscarCancion(string tituloCancion);
 
 	//Agrega Cancion En orden alfabetico
 	void agregarCancion(Cancion& cancion);
 	
-	//retorna puntero a cancion OJO QUIZA ESTE METODO NO SIRVA
-	//Cancion* getCancion(int pos);
+
 
 	//retorna puntero a cancion
-	Cancion* getCancion(string titulo);
+	nodosCanciones* getCancionNodo(string titulo);
+	nodosCanciones* getCancionNodoUltima();
+	nodosCanciones* getCancionNodoPrimera();
 
 private:
 	string letra;
 	NodoLetraInicial* siguienteLetra;
+	NodoLetraInicial* anteriorLetra;
 	nodosCanciones* top;
-
+	nodosCanciones* ultimo;
 };
 

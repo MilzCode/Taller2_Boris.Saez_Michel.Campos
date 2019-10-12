@@ -18,7 +18,9 @@ class ListaCancionesInicial
 public:
 	ListaCancionesInicial();
 	ListaTop10& getListaTop10();
-	Cancion* getCancion(string nombre);
+	NodoLetraInicial* getCancion(string nombre);
+	NodoLetraInicial* getPrimeraLetra();
+	NodoLetraInicial* getUltimaLetra();
 
 private:
 
@@ -28,6 +30,7 @@ private:
 	//ACCEDE A UNA SUBLISTA DE INICIALES INGRESANDO LA CANCION EN UNA DE ESAS LISTAS POR ORDEN ALFABETICO
 	void agregarCancion(string _titulo, string _artista, string _genero, string _anno, int _reproducciones);
 	NodoLetraInicial* primer;
+	NodoLetraInicial* ultima;
 
 };
 

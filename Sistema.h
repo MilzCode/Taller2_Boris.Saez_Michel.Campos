@@ -29,9 +29,10 @@ private:
 	ListaCancionesInicial* listaCanciones;
 	int verificadorIngreso(int max);
 	void printMenus(float imprimirMenuNumero);
-	void reproductor(Cancion* cancioncita);
+	int reproductor(Cancion* cancioncita);
 	Mp3 mp3;
 	//posee algunas funciones utiles
 	VerificadorIngreso v;
+
 };
 
