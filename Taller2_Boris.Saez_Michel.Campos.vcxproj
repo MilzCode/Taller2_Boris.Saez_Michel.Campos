@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cancion.cpp" />
-    <ClCompile Include="ListaCanciones.cpp" />
     <ClCompile Include="ListaCancionesInicial.cpp" />
     <ClCompile Include="ListaPersonal.cpp" />
     <ClCompile Include="ListaTop10.cpp" />
@@ -164,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cancion.h" />
-    <ClInclude Include="ListaCanciones.h" />
     <ClInclude Include="ListaCancionesInicial.h" />
     <ClInclude Include="ListaPersonal.h" />
     <ClInclude Include="ListaTop10.h" />

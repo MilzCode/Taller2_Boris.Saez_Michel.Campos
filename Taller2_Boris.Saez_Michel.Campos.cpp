@@ -1,14 +1,12 @@
 #include <iostream>
-#include "ListaCanciones.h"
 #include "Sistema.h"
 
 using namespace std;
 
 int main()
 {
-	CoInitialize(NULL);
+	
 
-	//ListaCanciones* canciones = new ListaCanciones();
 	Sistema* sis = new Sistema();
 
 	sis->ejecutarSistema();

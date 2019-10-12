@@ -190,6 +190,7 @@ void Sistema::printMenus(float imprimir)
 
 int Sistema::reproductor(Cancion* cancioncita)
 {
+	CoInitialize(NULL);
 	wstring cancionWs = cancioncita->getCancionWs();
 	if (mp3.Load( cancionWs.c_str() ) )
 
