@@ -7,13 +7,9 @@ ListaCancionesInicial::ListaCancionesInicial()
 	if (lecturaCanciones(archivoCanciones)) {
 		cout << "Lectura Correcta de " << archivoCanciones << endl;
 	}
-	listaTop10 = new ListaTop10();
+
 }
 
-ListaTop10& ListaCancionesInicial::getListaTop10()
-{
-	return *listaTop10;
-}
 
 NodoLetraInicial* ListaCancionesInicial::getCancion(string nombre)
 {

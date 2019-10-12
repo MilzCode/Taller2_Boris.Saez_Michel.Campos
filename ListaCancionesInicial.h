@@ -1,6 +1,5 @@
 #pragma once
 #include "NodoLetraInicial.h"
-#include "ListaTop10.h"
 
 #include "Cancion.h"
 
@@ -17,14 +16,12 @@ class ListaCancionesInicial
 
 public:
 	ListaCancionesInicial();
-	ListaTop10& getListaTop10();
 	NodoLetraInicial* getCancion(string nombre);
 	NodoLetraInicial* getPrimeraLetra();
 	NodoLetraInicial* getUltimaLetra();
 
 private:
 
-	ListaTop10* listaTop10;
 	bool lecturaCanciones(string nombreArchivo);
 
 	//ACCEDE A UNA SUBLISTA DE INICIALES INGRESANDO LA CANCION EN UNA DE ESAS LISTAS POR ORDEN ALFABETICO

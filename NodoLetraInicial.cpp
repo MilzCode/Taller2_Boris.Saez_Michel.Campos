@@ -92,7 +92,7 @@ void NodoLetraInicial::agregarCancion(Cancion& cancion)
 				return;
 			}
 			//si el siguiente del nodo buscando es mayor entonces el nodo n debe ir entre el buscando y el siguiente de este
-			else if (buscando->Cancion->getTitulo().compare(cancion.getTitulo()) > 0) {
+			else if (buscando->siguiente->Cancion->getTitulo().compare(cancion.getTitulo()) > 0) {
 
 				n->siguiente = buscando->siguiente;
 				if (buscando->siguiente != NULL) {
