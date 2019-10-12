@@ -26,6 +26,7 @@ public:
 
 
 private:
+
 	ListaCancionesInicial* listaCanciones;
 	int verificadorIngreso(int max);
 	void printMenus(float imprimirMenuNumero);

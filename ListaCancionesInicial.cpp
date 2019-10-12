@@ -67,7 +67,7 @@ bool ListaCancionesInicial::lecturaCanciones(string nombreArchivo)
 	//Aca los datos a obtener linea por linea
 	while (!archivo.eof()) { //mientras no sea final del archivo
 
-		string titulo;//parsearlo a wstring
+		string titulo;
 		string artista;
 		string genero;
 		string anno;
@@ -106,7 +106,8 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 {
 	Cancion* cancioncita = new Cancion(_titulo, _artista, _genero, _anno, _reproducciones);
 
-	//listaTop10->agregarCancionT10(cancioncita);
+	//de paso vamos agregando a la listaT10 esta misma a su vez se encarga de ingresarlos ordenados y solo manterlo en maximo 10
+	listaT10->agregarCancionT10(cancioncita);
 
 	string letra = _titulo;
 	letra = letra.at(0);	

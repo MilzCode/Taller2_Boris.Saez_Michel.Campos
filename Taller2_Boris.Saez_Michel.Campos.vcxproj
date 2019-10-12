@@ -154,6 +154,7 @@
     <ClCompile Include="Cancion.cpp" />
     <ClCompile Include="ListaCancionesInicial.cpp" />
     <ClCompile Include="ListaPersonal.cpp" />
+    <ClCompile Include="ListaT10.cpp" />
     <ClCompile Include="Mp3.cpp" />
     <ClCompile Include="NodoLetraInicial.cpp" />
     <ClCompile Include="Sistema.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Cancion.h" />
     <ClInclude Include="ListaCancionesInicial.h" />
     <ClInclude Include="ListaPersonal.h" />
+    <ClInclude Include="ListaT10.h" />
     <ClInclude Include="Mp3.h" />
     <ClInclude Include="NodoLetraInicial.h" />
     <ClInclude Include="Sistema.h" />
