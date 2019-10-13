@@ -31,6 +31,7 @@ public:
 	int getReproducciones();
 	wstring getCancionWs();
 	bool setDirectorioCanciones(string directorio);
+	void suma1Reproduccion(int add);
 
 };
 

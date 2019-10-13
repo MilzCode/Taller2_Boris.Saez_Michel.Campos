@@ -75,4 +75,9 @@ bool Cancion::setDirectorioCanciones(string directorio)
 	}
 }
 
+void Cancion::suma1Reproduccion(int add)
+{
+	this->reproducciones += add;
+}
+
 

@@ -41,6 +41,11 @@ NodoLetraInicial* ListaCancionesInicial::getUltimaLetra()
 	return ultima;
 }
 
+ListaT10* ListaCancionesInicial::getTop10()
+{
+	return listaT10;
+}
+
 //metodo para lectura de canciones asi todos los titulos quedaran en mayuscula
 template<typename C>
 void toUpper2(basic_string<C>& s, const locale& loc = locale()) {

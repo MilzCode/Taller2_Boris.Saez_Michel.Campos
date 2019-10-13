@@ -27,10 +27,12 @@ public:
 
 private:
 
+
+	void playListT10();
 	ListaCancionesInicial* listaCanciones;
 	int verificadorIngreso(int max);
 	void printMenus(float imprimirMenuNumero);
-	int reproductor(Cancion* cancioncita);
+	int reproductor(Cancion* cancioncita, int modo);
 	Mp3 mp3;
 	//posee algunas funciones utiles
 	VerificadorIngreso v;

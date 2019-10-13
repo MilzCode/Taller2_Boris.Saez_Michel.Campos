@@ -12,6 +12,70 @@ void ListaT10::eliminarUltimo()
 	cantActual--;
 }
 
+void ListaT10::actualizarT10(Cancion* cancion)
+{
+	if (!actualizando) {
+		cancion->suma1Reproduccion(1);
+	}
+
+	if (cancion == top->cancionT10) {
+		actualizando = false;
+		return;
+	}
+	bool estaEnT10 = false;
+	
+	nodoT10* buscando = top;
+	for (int i = 0; i < cantMax; i++) {
+		if (cancion == buscando->cancionT10) {
+			estaEnT10 = true;
+			break;
+		}
+		buscando = buscando->siguiente;
+	}
+	if (estaEnT10) {
+		//si la cancion es mayor que su anterior (es decir la que esta mas arriba en el top) habra que ordenar usaremos recursividad
+		if (buscando->anterior->cancionT10->getReproducciones() < buscando->cancionT10->getReproducciones()) {
+			actualizando = true;
+
+			nodoT10* anterior = buscando->anterior;
+			nodoT10* anteriorAanterior = anterior->anterior;
+			nodoT10* siguiente = buscando->siguiente;
+
+			//buscando = es el nodo que tenemos que cambiar
+			if (anterior->anterior== NULL) {
+				top = buscando;
+			}
+			else {
+				anteriorAanterior->siguiente = buscando;
+			}
+			anterior->siguiente = siguiente;
+
+			if (siguiente != NULL) {
+				siguiente->anterior = anterior;
+			}
+			else {
+				ultimo = anterior;
+			}
+			buscando->siguiente = anterior;
+			buscando->anterior = anteriorAanterior;
+			
+			anterior->anterior = buscando;
+			
+			actualizarT10(cancion);
+		}
+		else {
+			actualizando = false;
+			return;
+		}
+		return;
+	}
+	else {
+		agregarCancionT10(cancion);
+		actualizando = false;
+		return;
+	}
+}
+
 ListaT10::ListaT10()
 {
 	top = NULL;

@@ -61,7 +61,8 @@ void Sistema::ejecutarSistema()
 					system("pause");
 				}
 				else {
-					reproductor(cancioncita);
+					listaCanciones->getTop10()->actualizarT10(cancioncita);
+					reproductor(cancioncita,0);
 					int opcionControles;
 					while (true) {
 						opcionControles = verificadorIngreso(3);
@@ -83,7 +84,9 @@ void Sistema::ejecutarSistema()
 								}
 								cancioncitaNodo = cancioncitaNodoLetra->getCancionNodoPrimera();
 							}
-							reproductor(cancioncitaNodo->Cancion);
+
+							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
+							reproductor(cancioncitaNodo->Cancion,0);
 						}
 						//anterior
 						if (opcionControles == 2) {
@@ -98,15 +101,28 @@ void Sistema::ejecutarSistema()
 								}
 								cancioncitaNodo = cancioncitaNodoLetra->getCancionNodoUltima();
 							}
-							reproductor(cancioncitaNodo->Cancion);
+
+							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
+							reproductor(cancioncitaNodo->Cancion,0);
 						}
 
 					}
 				}
 			break;
 			}
+
+			//reproducir playlist
 			case 2: {
 				printMenus(2);
+				int opcion_2 = v.verificadorIngreso(2);
+				//top 10
+				if (opcion_2 == 1) {
+					playListT10();
+				}
+				//playlist personal
+				else {
+
+				}
 				break;
 			}
 			case 3: {
@@ -131,6 +147,50 @@ void Sistema::ejecutarSistema()
 
 }
 
+
+void Sistema::playListT10()
+{
+	Cancion* cancioncita = listaCanciones->getTop10()->getTopNodoT10()->cancionT10;
+	nodoT10* cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
+	listaCanciones->getTop10()->actualizarT10(cancioncita);
+	reproductor(cancioncita,1);
+	int opcionControles;
+	while (true) {
+		opcionControles = verificadorIngreso(3);
+		//salir
+		if (opcionControles == 3) {
+			mp3.Stop();
+			break;
+		}
+		//siguiente
+		if (opcionControles == 1) {
+			mp3.Stop();
+			if (cancioncitaNodo->siguiente != NULL) {
+				cancioncitaNodo = cancioncitaNodo->siguiente;
+			}
+			else {
+				cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
+			}
+
+			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
+			reproductor(cancioncitaNodo->cancionT10,1);
+		}
+		//anterior
+		if (opcionControles == 2) {
+			mp3.Stop();
+			if (cancioncitaNodo->anterior != NULL) {
+				cancioncitaNodo = cancioncitaNodo->anterior;
+			}
+			else {
+				cancioncitaNodo = listaCanciones->getTop10()->getUltimoNodoT10();
+			}
+
+			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
+			reproductor(cancioncitaNodo->cancionT10,1);
+		}
+
+	}
+}
 
 int Sistema::verificadorIngreso(int max)
 {
@@ -187,8 +247,8 @@ void Sistema::printMenus(float imprimir)
 		return;
 	}
 }
-
-int Sistema::reproductor(Cancion* cancioncita)
+//lamaremos modo 0, al modo normal, modo 1 al modo playlistT10, y modo 2 al modo playlist personal
+int Sistema::reproductor(Cancion* cancioncita, int modo)
 {
 	CoInitialize(NULL);
 	wstring cancionWs = cancioncita->getCancionWs();
@@ -200,6 +260,9 @@ int Sistema::reproductor(Cancion* cancioncita)
 		system("cls");
 		cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
 		cout << "DE : " << cancioncita->getArtista() <<"\n"<< endl;
+		if (modo == 1) {
+			cout << "Reproducciones : " << cancioncita->getReproducciones() << endl;
+		}
 		printMenus(1.5);
 		
 		return 1;

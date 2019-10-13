@@ -21,6 +21,7 @@ public:
 	NodoLetraInicial* getCancion(string nombre);
 	NodoLetraInicial* getPrimeraLetra();
 	NodoLetraInicial* getUltimaLetra();
+	ListaT10* getTop10();
 
 private:
 
