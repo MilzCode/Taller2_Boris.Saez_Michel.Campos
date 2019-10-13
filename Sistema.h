@@ -29,6 +29,7 @@ private:
 
 
 	void playListT10();
+	void personalPlaylist();
 	ListaCancionesInicial* listaCanciones;
 	int verificadorIngreso(int max);
 	void printMenus(float imprimirMenuNumero);

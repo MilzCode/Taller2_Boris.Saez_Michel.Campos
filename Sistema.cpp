@@ -121,7 +121,7 @@ void Sistema::ejecutarSistema()
 				}
 				//playlist personal
 				else {
-
+					personalPlaylist();
 				}
 				break;
 			}
@@ -190,6 +190,10 @@ void Sistema::playListT10()
 		}
 
 	}
+}
+
+void Sistema::personalPlaylist()
+{
 }
 
 int Sistema::verificadorIngreso(int max)
