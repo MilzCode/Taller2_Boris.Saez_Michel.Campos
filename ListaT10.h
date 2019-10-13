@@ -19,7 +19,7 @@ private:
 	void eliminarUltimo();
 
 	int cantActual;
-	const int cantMax = 10;
+	const int cantMax = 10;//para aumentar o disminuir el top solo cambiar este parametro
 	
 public:
 	ListaT10();

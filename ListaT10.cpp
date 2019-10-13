@@ -147,6 +147,7 @@ void ListaT10::agregarCancionT10(Cancion* cancion)
 				buscando->siguiente = n;
 				n->anterior = buscando;
 				cantActual++;
+				ultimo = n;
 				eliminarUltimo();
 				return;
 			}

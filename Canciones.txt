@@ -1,5 +1,5 @@
-Funky Drummer,James Brown,Soul,1970,50
-Blind Man Can See It,James Brown,Soul,1970,78
+Funky Drummer,James Brown,Soul,1970,106
+Blind Man Can See It,James Brown,Soul,1970,90
 all my love,Led Zepellin,rock,1975,100
 alturas,Inti Illimani,folclore,1988,20
-A horse with no name,America, rock, 1971,60
+A horse with no name,America, rock, 1971,102
