@@ -258,6 +258,9 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 
 		mp3.Play();
 		system("cls");
+		if (modo == 1) {
+			cout << "-----------TOP CANCIONES-----------\n" << endl;
+		}
 		cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
 		cout << "DE : " << cancioncita->getArtista() <<"\n"<< endl;
 		if (modo == 1) {
