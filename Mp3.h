@@ -51,6 +51,9 @@ public:
 	// pointers with the same dereferenced value.
 	bool SetPositions(__int64* pCurrent, __int64* pStop, bool bAbsolutePositioning);
 
+	//retorna true si es el final de la cancion
+	bool isFinal();
+
 private:
 	IGraphBuilder* pigb;
 	IMediaControl* pimc;

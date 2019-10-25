@@ -186,3 +186,11 @@ bool Mp3::SetPositions(__int64* pCurrent, __int64* pStop, bool bAbsolutePosition
 
 	return false;
 }
+
+bool Mp3::isFinal()
+{
+	if (GetCurrentPosition() == GetDuration()) {
+		return true;
+	}
+	return false;
+}

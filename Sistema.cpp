@@ -64,11 +64,20 @@ void Sistema::ejecutarSistema()
 				else {
 					listaCanciones->getTop10()->actualizarT10(cancioncita);
 					reproductor(cancioncita,0);
-					int opcionControles;
+					char tecla;
 					while (true) {
-						opcionControles = verificadorIngreso(4);
+						if (_kbhit()) {
+							tecla = _getch();
+						}
+						else {
+							tecla = 'z';
+						}
+						//si termino reproduce de nuevo
+						if (mp3.isFinal()) {
+							reproductor(cancioncita, 0);
+						}
 						//salir
-						if (opcionControles == 4) {
+						if (tecla == '4') {
 							short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 							if (estadoCancion == 3) {
 								cout << "AGREGADA..." << endl;
@@ -80,12 +89,13 @@ void Sistema::ejecutarSistema()
 								cout << "Ya existe" << endl;
 							}
 						}
-						if (opcionControles == 3) {
+						//stop
+						if (tecla == '3') {
 							mp3.Stop();
 							break;
 						}
 						//siguiente
-						if (opcionControles == 1) {
+						if (tecla == '1') {
 							mp3.Stop();
 							if (cancioncitaNodo->siguiente != NULL) {
 								cancioncitaNodo = cancioncitaNodo->siguiente;
@@ -103,7 +113,7 @@ void Sistema::ejecutarSistema()
 							reproductor(cancioncitaNodo->Cancion,0);
 						}
 						//anterior
-						if (opcionControles == 2) {
+						if (tecla == '2') {
 							mp3.Stop();
 							if (cancioncitaNodo->anterior != NULL) {
 								cancioncitaNodo = cancioncitaNodo->anterior;
@@ -169,11 +179,20 @@ void Sistema::playListT10()
 	nodoT10* cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
 	listaCanciones->getTop10()->actualizarT10(cancioncita);
 	reproductor(cancioncita,1);
-	int opcionControles;
+	char tecla;
 	while (true) {
-		opcionControles = verificadorIngreso(4);
+		if (_kbhit()) {
+			tecla = _getch();
+		}
+		else {
+			tecla = 'z';
+		}
+		//si termino reproduce de nuevo
+		if (mp3.isFinal()) {
+			reproductor(cancioncita, 1);
+		}
 		//salir
-		if (opcionControles == 4) {
+		if (tecla == '4') {
 			short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 			if (estadoCancion == 3) {
 				cout << "AGREGADA..." << endl;
@@ -186,12 +205,12 @@ void Sistema::playListT10()
 			}
 			
 		}
-		if (opcionControles == 3) {
+		if (tecla == '3') {
 			mp3.Stop();
 			break;
 		}
 		//siguiente
-		if (opcionControles == 1) {
+		if (tecla == '1') {
 			mp3.Stop();
 			if (cancioncitaNodo->siguiente != NULL) {
 				cancioncitaNodo = cancioncitaNodo->siguiente;
@@ -205,7 +224,7 @@ void Sistema::playListT10()
 			reproductor(cancioncitaNodo->cancionT10,1);
 		}
 		//anterior
-		if (opcionControles == 2) {
+		if (tecla == '2') {
 			mp3.Stop();
 			if (cancioncitaNodo->anterior != NULL) {
 				cancioncitaNodo = cancioncitaNodo->anterior;
@@ -232,11 +251,20 @@ void Sistema::personalPlaylist()
 	nodoP* nodoCancioncita = listaPersonales->getPrimerNodoP();
 	Cancion* cancioncita = nodoCancioncita->cancionP;
 	reproductor(cancioncita, 2);
-	int opcionesControl;
+	char tecla;
 	while (true) {
-		opcionesControl = verificadorIngreso(4);
+		if (_kbhit()) {
+			tecla = _getch();
+		}
+		else {
+			tecla = 'z';
+		}
+		//si termino reproduce de nuevo
+		if (mp3.isFinal()) {
+			reproductor(cancioncita, 2);
+		}
 		//eliminar
-		if (opcionesControl == 4) {
+		if (tecla == '4') {
 			mp3.Stop();
 			if (listaPersonales->eliminarCancionP(cancioncita)) {
 				cout << "ELIMINADA" << endl;
@@ -248,12 +276,13 @@ void Sistema::personalPlaylist()
 			nodoCancioncita = listaPersonales->getPrimerNodoP();
 			cancioncita = nodoCancioncita->cancionP;
 		}
-		if (opcionesControl == 3) {
+		//stop
+		if (tecla == '3') {
 			mp3.Stop();
 			return;
 		}
 		//siguiente
-		if (opcionesControl == 1) {
+		if (tecla == '1') {
 			mp3.Stop();
 			if (nodoCancioncita->siguiente == NULL) {
 				nodoCancioncita = listaPersonales->getPrimerNodoP();
@@ -267,7 +296,7 @@ void Sistema::personalPlaylist()
 			
 		}
 		//anterior
-		if (opcionesControl == 2) {
+		if (tecla == '2') {
 			if (nodoCancioncita->anterior == NULL) {
 				nodoCancioncita = listaPersonales->getUltimoNodoP();
 			}
