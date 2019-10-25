@@ -76,7 +76,7 @@ bool Mp3::Load(LPCWSTR szFile)
 			if (pims)
 			{
 				pims->SetTimeFormat(&TIME_FORMAT_MEDIA_TIME);
-				pims->GetDuration(&duration); // returns 10,000,000 for a second.
+				pims->GetDuration(&duration); // retorna 10,000,000 por segundo
 				duration = duration;
 			}
 		}
@@ -94,16 +94,6 @@ bool Mp3::Play()
 	return false;
 }
 
-bool Mp3::Pause()
-{
-	if (ready && pimc)
-	{
-		HRESULT hr = pimc->Pause();
-		return SUCCEEDED(hr);
-	}
-	return false;
-}
-
 bool Mp3::Stop()
 {
 	if (ready && pimc)
@@ -114,40 +104,7 @@ bool Mp3::Stop()
 	return false;
 }
 
-bool Mp3::WaitForCompletion(long msTimeout, long* EvCode)
-{
-	if (ready && pimex)
-	{
-		HRESULT hr = pimex->WaitForCompletion(msTimeout, EvCode);
-		return *EvCode > 0;
-	}
 
-	return false;
-}
-
-bool Mp3::SetVolume(long vol)
-{
-	if (ready && piba)
-	{
-		HRESULT hr = piba->put_Volume(vol);
-		return SUCCEEDED(hr);
-	}
-	return false;
-}
-
-long Mp3::GetVolume()
-{
-	if (ready && piba)
-	{
-		long vol = -1;
-		HRESULT hr = piba->get_Volume(&vol);
-
-		if (SUCCEEDED(hr))
-			return vol;
-	}
-
-	return -1;
-}
 
 __int64 Mp3::GetDuration()
 {
@@ -166,25 +123,6 @@ __int64 Mp3::GetCurrentPosition()
 	}
 
 	return -1;
-}
-
-bool Mp3::SetPositions(__int64* pCurrent, __int64* pStop, bool bAbsolutePositioning)
-{
-	if (ready && pims)
-	{
-		DWORD flags = 0;
-		if (bAbsolutePositioning)
-			flags = AM_SEEKING_AbsolutePositioning | AM_SEEKING_SeekToKeyFrame;
-		else
-			flags = AM_SEEKING_RelativePositioning | AM_SEEKING_SeekToKeyFrame;
-
-		HRESULT hr = pims->SetPositions(pCurrent, flags, pStop, flags);
-
-		if (SUCCEEDED(hr))
-			return true;
-	}
-
-	return false;
 }
 
 bool Mp3::isFinal()
