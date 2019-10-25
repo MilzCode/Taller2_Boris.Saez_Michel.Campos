@@ -3,6 +3,7 @@
 Sistema::Sistema()
 {
 	listaCanciones = new ListaCancionesInicial();
+	listaPersonales = new ListaPersonal();
 }
 //metodo UPPERCASE;
 template<typename C>
@@ -65,7 +66,7 @@ void Sistema::ejecutarSistema()
 					reproductor(cancioncita,0);
 					int opcionControles;
 					while (true) {
-						opcionControles = verificadorIngreso(3);
+						opcionControles = verificadorIngreso(4);
 						//salir
 						if (opcionControles == 3) {
 							mp3.Stop();
@@ -156,7 +157,7 @@ void Sistema::playListT10()
 	reproductor(cancioncita,1);
 	int opcionControles;
 	while (true) {
-		opcionControles = verificadorIngreso(3);
+		opcionControles = verificadorIngreso(4);
 		//salir
 		if (opcionControles == 3) {
 			mp3.Stop();
@@ -194,6 +195,16 @@ void Sistema::playListT10()
 
 void Sistema::personalPlaylist()
 {
+	if (listaPersonales->getPrimerNodoP() == NULL){
+		cout << "La lista de canciones personales esta Vacia" << endl;
+		system("pause");
+		return;
+	}
+	nodoP* nodoCancioncita = listaPersonales->getPrimerNodoP();
+	Cancion* cancioncita = nodoCancioncita->cancionP;
+	reproductor(cancioncita, 2);
+	int opcionesControl = verificadorIngreso(4);
+
 }
 
 int Sistema::verificadorIngreso(int max)
@@ -271,6 +282,12 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 			cout << "Reproducciones : " << cancioncita->getReproducciones() << endl;
 		}
 		printMenus(1.5);
+		if (modo != 2) {
+			cout << "[4] Agregar a Playlist Personal" << endl;
+		}
+		else {
+			cout << "[4] Eliminar de Playlist Personal" << endl;
+		}
 		
 		return 1;
 	}

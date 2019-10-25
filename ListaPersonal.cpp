@@ -107,10 +107,10 @@ bool ListaPersonal::eliminarCancionP(Cancion* cancioncita)
 
 nodoP* ListaPersonal::getPrimerNodoP()
 {
-	return nullptr;
+	return primer;
 }
 
 nodoP* ListaPersonal::getUltimoNodoP()
 {
-	return nullptr;
+	return ultimo;
 }

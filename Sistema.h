@@ -2,6 +2,7 @@
 #include "ListaCancionesInicial.h"
 #include "Mp3.h"
 #include "VerificadorIngreso.h"
+#include "ListaPersonal.h"
 
 
 
@@ -31,6 +32,7 @@ private:
 	void playListT10();
 	void personalPlaylist();
 	ListaCancionesInicial* listaCanciones;
+	ListaPersonal* listaPersonales;
 	int verificadorIngreso(int max);
 	void printMenus(float imprimirMenuNumero);
 	int reproductor(Cancion* cancioncita, int modo);
