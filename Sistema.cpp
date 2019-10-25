@@ -68,6 +68,18 @@ void Sistema::ejecutarSistema()
 					while (true) {
 						opcionControles = verificadorIngreso(4);
 						//salir
+						if (opcionControles == 4) {
+							short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
+							if (estadoCancion == 3) {
+								cout << "AGREGADA..." << endl;
+							}
+							else if(estadoCancion == 1) {
+								cout << "LISTA LLENA" << endl;
+							}
+							else {
+								cout << "Ya existe" << endl;
+							}
+						}
 						if (opcionControles == 3) {
 							mp3.Stop();
 							break;
@@ -87,6 +99,7 @@ void Sistema::ejecutarSistema()
 							}
 
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
+							cancioncita = cancioncitaNodo->Cancion;
 							reproductor(cancioncitaNodo->Cancion,0);
 						}
 						//anterior
@@ -104,6 +117,7 @@ void Sistema::ejecutarSistema()
 							}
 
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
+							cancioncita = cancioncitaNodo->Cancion;
 							reproductor(cancioncitaNodo->Cancion,0);
 						}
 
@@ -159,6 +173,19 @@ void Sistema::playListT10()
 	while (true) {
 		opcionControles = verificadorIngreso(4);
 		//salir
+		if (opcionControles == 4) {
+			short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
+			if (estadoCancion == 3) {
+				cout << "AGREGADA..." << endl;
+			}
+			else if (estadoCancion == 1) {
+				cout << "LISTA LLENA" << endl;
+			}
+			else {
+				cout << "Ya existe" << endl;
+			}
+			
+		}
 		if (opcionControles == 3) {
 			mp3.Stop();
 			break;
@@ -174,6 +201,7 @@ void Sistema::playListT10()
 			}
 
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
+			cancioncita = cancioncitaNodo->cancionT10;
 			reproductor(cancioncitaNodo->cancionT10,1);
 		}
 		//anterior
@@ -187,6 +215,7 @@ void Sistema::playListT10()
 			}
 
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
+			cancioncita = cancioncitaNodo->cancionT10;
 			reproductor(cancioncitaNodo->cancionT10,1);
 		}
 
@@ -203,7 +232,53 @@ void Sistema::personalPlaylist()
 	nodoP* nodoCancioncita = listaPersonales->getPrimerNodoP();
 	Cancion* cancioncita = nodoCancioncita->cancionP;
 	reproductor(cancioncita, 2);
-	int opcionesControl = verificadorIngreso(4);
+	int opcionesControl;
+	while (true) {
+		opcionesControl = verificadorIngreso(4);
+		//eliminar
+		if (opcionesControl == 4) {
+			mp3.Stop();
+			if (listaPersonales->eliminarCancionP(cancioncita)) {
+				cout << "ELIMINADA" << endl;
+			}
+			if (listaPersonales->getPrimerNodoP() == NULL) {
+				return;
+			}
+			reproductor(listaPersonales->getPrimerNodoP()->cancionP, 2);
+			nodoCancioncita = listaPersonales->getPrimerNodoP();
+			cancioncita = nodoCancioncita->cancionP;
+		}
+		if (opcionesControl == 3) {
+			mp3.Stop();
+			return;
+		}
+		//siguiente
+		if (opcionesControl == 1) {
+			mp3.Stop();
+			if (nodoCancioncita->siguiente == NULL) {
+				nodoCancioncita = listaPersonales->getPrimerNodoP();
+			}
+			else {
+				nodoCancioncita = nodoCancioncita->siguiente;
+			}
+			cancioncita = nodoCancioncita->cancionP;
+			listaCanciones->getTop10()->actualizarT10(cancioncita);
+			reproductor(cancioncita, 2);
+			
+		}
+		//anterior
+		if (opcionesControl == 2) {
+			if (nodoCancioncita->anterior == NULL) {
+				nodoCancioncita = listaPersonales->getUltimoNodoP();
+			}
+			else {
+				nodoCancioncita = nodoCancioncita->anterior;
+			}
+			cancioncita = nodoCancioncita->cancionP;
+			listaCanciones->getTop10()->actualizarT10(cancioncita);
+			reproductor(cancioncita, 2);
+		}
+	}
 
 }
 

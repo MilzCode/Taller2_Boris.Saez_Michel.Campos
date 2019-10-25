@@ -7,11 +7,11 @@ ListaPersonal::ListaPersonal()
 	ultimo = NULL;
 }
 
-bool ListaPersonal::agregarCancionP(Cancion* cancioncita)
+short ListaPersonal::agregarCancionP(Cancion* cancioncita)
 {
 	//si la lista esta llena
 	if (cantActual == cantMax) {
-		return false;
+		return 1;
 	}
 	//si la lista esta vacia
 	if (cantActual == 0) {
@@ -22,13 +22,13 @@ bool ListaPersonal::agregarCancionP(Cancion* cancioncita)
 		n->anterior = NULL;
 		n->cancionP = cancioncita;
 		cantActual++;
-		return true;
+		return 3;
 	}
 	nodoP* n = primer;
 	//si la cancion ya se encuentra en la lista personal
 	for (int a = 0; a < cantActual; a++) {
 		if (n->cancionP == cancioncita) {
-			return false;
+			return 2;
 		}
 		if (n->siguiente != NULL) {
 			n = n->siguiente;
@@ -44,7 +44,7 @@ bool ListaPersonal::agregarCancionP(Cancion* cancioncita)
 	ultimo = nuevo;
 	cantActual++;
 
-	return true;
+	return 3;
 	
 
 }

@@ -16,10 +16,12 @@ class ListaPersonal
 
 public:
 	ListaPersonal();
-	bool agregarCancionP(Cancion* cancioncita);
+	//retorna 1 llena, 2 ya existe, 3 todo ok
+	short agregarCancionP(Cancion* cancioncita);
 	bool eliminarCancionP(Cancion* cancioncita);
 	nodoP* getPrimerNodoP();
 	nodoP* getUltimoNodoP();
+	
 
 private:
 
