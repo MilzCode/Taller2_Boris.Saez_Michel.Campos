@@ -96,7 +96,6 @@ bool ListaCancionesInicial::lecturaCanciones(string nombreArchivo)
 		genero = trim.trim(genero);
 		anno = trim.trim(anno);
 		_reproducciones = trim.trim(_reproducciones);
-		
 		toUpper2(titulo);
 		toUpper2(genero);
 

@@ -15,6 +15,7 @@ class ListaGeneros
 public:
 	ListaGeneros();
 	void agregarGenero(string genero, int cantidadReproducciones);
+	bool sumarGenero(string genero);
 	int getCantActual();
 	nodoG* getPrimerG();
 	

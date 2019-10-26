@@ -63,6 +63,7 @@ void Sistema::ejecutarSistema()
 				}
 				else {
 					listaCanciones->getTop10()->actualizarT10(cancioncita);
+				
 					listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 					int duracionDesdeMensaje = 0;
 					bool mensajeAgregado = false;
@@ -232,7 +233,7 @@ void Sistema::ejecutarSistema()
 				}
 				printMenus(6);
 				while(n!=NULL){
-					cout << n->genero << " Cantidad de Reproducciones = " << n->cantidadReproducciones << endl;;
+					cout << n->genero << " Cantidad de Reproducciones = " << n->cantidadReproducciones << endl;
 					n = n->siguiente;
 				}
 				escribirArchivoEstadisticas("Estadisticas.txt", ',');
@@ -243,6 +244,7 @@ void Sistema::ejecutarSistema()
 
 			//Salir ojo aca hay que actualizar archivo canciones.txt
 			case 7: {
+				actualizarCanciones("Canciones.txt", ',');
 				cout << "Actualizado Archivo Canciones.txt...\n ADIOS :D" << endl;
 				system("pause");
 				exit(0);
@@ -537,6 +539,49 @@ void Sistema::escribirArchivoEstadisticas(string nombreArchivo,char separador)
 		archivo << genero << separador << reproducciones<< endl;
 		
 		n = n->siguiente;
+	}
+
+	archivo.close(); //Cerramos el archivo
+}
+
+void Sistema::actualizarCanciones(string nombreArchivo, char separador)
+{
+	ofstream archivo;
+
+	archivo.open(nombreArchivo.c_str(), ios::out); //Creamos el archivo
+
+	if (archivo.fail()) { //Si a ocurrido algun error
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+	NodoLetraInicial* letra = listaCanciones->getPrimeraLetra();
+	nodosCanciones* cancionNodo = letra->getCancionNodoPrimera();
+	bool inicio = true;
+	while(letra != NULL) {
+		Cancion* cancioncitap;
+		if (cancionNodo != NULL) {
+			cancioncitap = cancionNodo->Cancion;
+
+			string titulo = cancioncitap->getTitulo();
+			string artista = cancioncitap->getArtista();
+			string genero = cancioncitap->getGenero();
+			string anno = cancioncitap->getAnno();
+			int reproducciones = cancioncitap->getReproducciones();
+			//para evitar hacer un salto de linea al final del archivo
+			if (!inicio) {
+				archivo << endl;
+			}
+			archivo << titulo << separador << artista << separador << genero << separador << anno << separador << reproducciones;
+			cancionNodo = cancionNodo->siguiente;
+			inicio = false;
+		}
+
+		if (cancionNodo == NULL) {
+			letra = letra->getSiguienteNodo();
+			if(letra!=NULL){
+				cancionNodo = letra->getCancionNodoPrimera();
+			}
+		}
 	}
 
 	archivo.close(); //Cerramos el archivo

@@ -42,6 +42,7 @@ private:
 	//lamaremos modo 0, al modo normal, modo 1 al modo playlistT10, y modo 2 al modo playlist personal
 	void menuReproduccion(int modo,Cancion* cancioncita);
 	void escribirArchivoEstadisticas(string nombreArchivo, char separador);
-
+	void actualizarCanciones(string nombreArchivo, char separador);
+	Trim trim;
 };
 
