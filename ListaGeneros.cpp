@@ -1,5 +1,4 @@
 #include "ListaGeneros.h"
-#include <iostream>
 
 
 ListaGeneros::ListaGeneros()
@@ -25,17 +24,15 @@ void ListaGeneros::agregarGenero(string genero, int cantidadReproducciones)
 	bool existe = false;
 	nodoG* buscando = top;
 
-	for (int a = 0; a < cantActual; a++) {
+	while(buscando != NULL) {
 		string genero2 = buscando->genero;
 		if (genero2.compare(genero) == 0) {
 			existe = true;
 			break;
 		}
-		if (buscando->siguiente != NULL) {
-			buscando = buscando->siguiente;
-		}
-	}
+		buscando = buscando->siguiente;
 
+	}
 	if (!existe) {
 		nodoG* n = new nodoG;
 		n->genero = genero;
