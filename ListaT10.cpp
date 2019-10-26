@@ -123,6 +123,7 @@ void ListaT10::agregarCancionT10(Cancion* cancion)
 	nodoT10* buscando = top;
 
 	while (true) {
+		
 
 		//si coinciden con alguna cantidad de reproducciones
 		if (cancion->getReproducciones() == buscando->cancionT10->getReproducciones()) {

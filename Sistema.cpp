@@ -63,6 +63,7 @@ void Sistema::ejecutarSistema()
 				}
 				else {
 					listaCanciones->getTop10()->actualizarT10(cancioncita);
+					listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 					int duracionDesdeMensaje = 0;
 					bool mensajeAgregado = false;
 					reproductor(cancioncita,0);
@@ -123,6 +124,7 @@ void Sistema::ejecutarSistema()
 
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
 							cancioncita = cancioncitaNodo->Cancion;
+							listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 							reproductor(cancioncitaNodo->Cancion,0);
 						}
 						//anterior
@@ -141,6 +143,7 @@ void Sistema::ejecutarSistema()
 
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
 							cancioncita = cancioncitaNodo->Cancion;
+							listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 							reproductor(cancioncitaNodo->Cancion,0);
 						}
 
@@ -229,13 +232,12 @@ void Sistema::ejecutarSistema()
 				}
 				printMenus(6);
 				while(n!=NULL){
-					cout << n->genero << " cantidad Reproducciones = " << n->cantidadReproducciones << endl;;
+					cout << n->genero << " Cantidad de Reproducciones = " << n->cantidadReproducciones << endl;;
 					n = n->siguiente;
 				}
-				cout << listaCanciones->getListaGeneros()->getCantActual()<<endl;
+				escribirArchivoEstadisticas("Estadisticas.txt", ',');
 				system("pause");
-				
-				
+
 				break;
 			}
 
@@ -258,6 +260,7 @@ void Sistema::playListT10()
 	Cancion* cancioncita = listaCanciones->getTop10()->getTopNodoT10()->cancionT10;
 	nodoT10* cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
 	listaCanciones->getTop10()->actualizarT10(cancioncita);
+	listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);//para agregar 1 reproduccion
 	char tecla;
 	int duracionDesdeMensaje = 0;
 	bool mensajeAgregado= false;
@@ -317,6 +320,7 @@ void Sistema::playListT10()
 
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
 			cancioncita = cancioncitaNodo->cancionT10;
+			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 			reproductor(cancioncitaNodo->cancionT10,1);
 		}
 		//anterior
@@ -331,6 +335,7 @@ void Sistema::playListT10()
 
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
 			cancioncita = cancioncitaNodo->cancionT10;
+			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 			reproductor(cancioncitaNodo->cancionT10,1);
 		}
 
@@ -346,6 +351,8 @@ void Sistema::personalPlaylist()
 	}
 	nodoP* nodoCancioncita = listaPersonales->getPrimerNodoP();
 	Cancion* cancioncita = nodoCancioncita->cancionP;
+	listaCanciones->getTop10()->actualizarT10(cancioncita);
+	listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 	reproductor(cancioncita, 2);
 	char tecla;
 	while (true) {
@@ -371,6 +378,7 @@ void Sistema::personalPlaylist()
 			reproductor(listaPersonales->getPrimerNodoP()->cancionP, 2);
 			nodoCancioncita = listaPersonales->getPrimerNodoP();
 			cancioncita = nodoCancioncita->cancionP;
+			
 		}
 		//stop
 		if (tecla == '3') {
@@ -389,6 +397,7 @@ void Sistema::personalPlaylist()
 			cancioncita = nodoCancioncita->cancionP;
 			listaCanciones->getTop10()->actualizarT10(cancioncita);
 			reproductor(cancioncita, 2);
+			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 			
 		}
 		//anterior
@@ -401,6 +410,7 @@ void Sistema::personalPlaylist()
 			}
 			cancioncita = nodoCancioncita->cancionP;
 			listaCanciones->getTop10()->actualizarT10(cancioncita);
+			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 			reproductor(cancioncita, 2);
 		}
 	}
@@ -508,6 +518,28 @@ void Sistema::menuReproduccion(int modo, Cancion* cancioncita)
 	else {
 		cout << "[4] Eliminar de Playlist Personal" << endl;
 	}
+}
+
+void Sistema::escribirArchivoEstadisticas(string nombreArchivo,char separador)
+{
+	ofstream archivo;
+
+	archivo.open(nombreArchivo.c_str(), ios::out); //Creamos el archivo
+
+	if (archivo.fail()) { //Si a ocurrido algun error
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+	nodoG* n = listaCanciones->getListaGeneros()->getPrimerG();
+	while(n!= NULL){
+		string genero = n->genero;
+		int reproducciones = n->cantidadReproducciones;
+		archivo << genero << separador << reproducciones<< endl;
+		
+		n = n->siguiente;
+	}
+
+	archivo.close(); //Cerramos el archivo
 }
 
 
