@@ -222,7 +222,20 @@ void Sistema::ejecutarSistema()
 				break;
 			}
 			case 6: {
+				
+				nodoG* n = listaCanciones->getListaGeneros()->getPrimerG();
+				if (n == NULL) {
+					break;
+				}
 				printMenus(6);
+				while(n!=NULL){
+					cout << n->genero << " cantidad Reproducciones = " << n->cantidadReproducciones << endl;;
+					n = n->siguiente;
+				}
+				cout << listaCanciones->getListaGeneros()->getCantActual()<<endl;
+				system("pause");
+				
+				
 				break;
 			}
 

@@ -46,6 +46,11 @@ ListaT10* ListaCancionesInicial::getTop10()
 	return listaT10;
 }
 
+ListaGeneros* ListaCancionesInicial::getListaGeneros()
+{
+	return listaG;
+}
+
 //metodo para lectura de canciones asi todos los titulos quedaran en mayuscula
 template<typename C>
 void toUpper2(basic_string<C>& s, const locale& loc = locale()) {
@@ -85,7 +90,16 @@ bool ListaCancionesInicial::lecturaCanciones(string nombreArchivo)
 		getline(archivo, genero, ',');
 		getline(archivo, anno, ',');
 		getline(archivo, _reproducciones);
+		
+		titulo = trim.trim(titulo);
+		artista = trim.trim(artista);
+		genero = trim.trim(genero);
+		anno = trim.trim(anno);
+		_reproducciones = trim.trim(_reproducciones);
+		
 		toUpper2(titulo);
+		toUpper2(genero);
+
 
 		try {
 			reproducciones = stoi(_reproducciones);
@@ -113,6 +127,7 @@ void ListaCancionesInicial::agregarCancion(string _titulo, string _artista, stri
 
 	//de paso vamos agregando a la listaT10 esta misma a su vez se encarga de ingresarlos ordenados y solo manterlo en maximo 10
 	listaT10->agregarCancionT10(cancioncita);
+	listaG->agregarGenero(_genero, _reproducciones);
 
 	string letra = _titulo;
 	letra = letra.at(0);	
