@@ -26,13 +26,12 @@ short ListaPersonal::agregarCancionP(Cancion* cancioncita)
 	}
 	nodoP* n = primer;
 	//si la cancion ya se encuentra en la lista personal
-	for (int a = 0; a < cantActual; a++) {
+	while (n!=NULL) {
 		if (n->cancionP == cancioncita) {
 			return 2;
 		}
-		if (n->siguiente != NULL) {
-			n = n->siguiente;
-		}
+		n = n->siguiente;
+
 	}
 	nodoP* nuevo = new nodoP;
 	nuevo->cancionP = cancioncita;
@@ -57,14 +56,14 @@ bool ListaPersonal::eliminarCancionP(Cancion* cancioncita)
 	nodoP* n = primer;
 	bool existe = false;
 	//si la cancion NO se encuentra en la lista personal de paso busco el nodo
-	for (int a = 0; a < cantActual; a++) {
+	while (n!=NULL) {
 		if (n->cancionP == cancioncita) {
 			existe = true;
 			break;
 		}
-		if (n->siguiente != NULL) {
-			n = n->siguiente;
-		}
+
+		n = n->siguiente;
+		
 	}
 	if (!existe) {
 		return false;
@@ -109,13 +108,13 @@ bool ListaPersonal::existeCancion(Cancion* cancioncita)
 {
 	nodoP* n = primer;
 	//si la cancion ya se encuentra en la lista personal
-	for (int a = 0; a < cantActual; a++) {
+	while(n!=NULL) {
 		if (n->cancionP == cancioncita) {
 			return true;
 		}
-		if (n->siguiente != NULL) {
-			n = n->siguiente;
-		}
+
+		n = n->siguiente;
+
 	}
 	return false;
 }

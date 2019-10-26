@@ -25,7 +25,7 @@ void ListaT10::actualizarT10(Cancion* cancion)
 	bool estaEnT10 = false;
 	
 	nodoT10* buscando = top;
-	for (int i = 0; i < cantMax; i++) {
+	while (buscando !=NULL) {
 		if (cancion == buscando->cancionT10) {
 			estaEnT10 = true;
 			break;
