@@ -1,6 +1,6 @@
-Funky Drummer,James Brown,Soul,1970,900
-Blind Man Can See It,James Brown,Soul,1970,100
-all my love,Led Zepellin,rock,1975,10
-alturas,Inti Illimani,folclore,1988,150
-A horse with no name,America,rock, 1971,80
-a,America, elctro , 1971,1000
+A,America,ELCTRO,1971,1012
+A HORSE WITH NO NAME,America,ROCK,1971,90
+ALL MY LOVE,Led Zepellin,ROCK,1975,18
+ALTURAS,Inti Illimani,FOLCLORE,1988,161
+BLIND MAN CAN SEE IT,James Brown,SOUL,1970,108
+FUNKY DRUMMER,James Brown,SOUL,1970,909

@@ -30,7 +30,13 @@ short ListaPersonal::agregarCancionP(Cancion* cancioncita)
 		if (n->cancionP == cancioncita) {
 			return 2;
 		}
-		n = n->siguiente;
+		if (n->siguiente != NULL) {
+			n = n->siguiente;
+		}
+		else {
+			break;
+		}
+		
 
 	}
 	nodoP* nuevo = new nodoP;
