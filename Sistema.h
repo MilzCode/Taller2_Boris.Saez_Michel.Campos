@@ -39,6 +39,8 @@ private:
 	Mp3 mp3;
 	//posee algunas funciones utiles
 	VerificadorIngreso v;
+	//lamaremos modo 0, al modo normal, modo 1 al modo playlistT10, y modo 2 al modo playlist personal
+	void menuReproduccion(int modo,Cancion* cancioncita);
 
 };
 

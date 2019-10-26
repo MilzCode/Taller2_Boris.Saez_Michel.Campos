@@ -20,7 +20,7 @@ void Sistema::ejecutarSistema()
 	while (true) {
 		system("cls");
 		printMenus(0);
-		int opcion_0 = verificadorIngreso(5);
+		int opcion_0 = verificadorIngreso(7);
 
 		switch (opcion_0){
 
@@ -63,9 +63,15 @@ void Sistema::ejecutarSistema()
 				}
 				else {
 					listaCanciones->getTop10()->actualizarT10(cancioncita);
+					int duracionDesdeMensaje = 0;
+					bool mensajeAgregado = false;
 					reproductor(cancioncita,0);
 					char tecla;
 					while (true) {
+						if (mensajeAgregado && (((int)mp3.GetCurrentPosition() / 10000000) - duracionDesdeMensaje) >= 2) {
+							menuReproduccion(0, cancioncita);
+							mensajeAgregado = false;
+						}
 						if (_kbhit()) {
 							tecla = _getch();
 						}
@@ -76,18 +82,25 @@ void Sistema::ejecutarSistema()
 						if (mp3.isFinal()) {
 							reproductor(cancioncita, 0);
 						}
-						//salir
+						//agregar cancion
 						if (tecla == '4') {
 							short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 							if (estadoCancion == 3) {
 								cout << "AGREGADA..." << endl;
+								duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+								mensajeAgregado = true;
+
 							}
-							else if(estadoCancion == 1) {
+							else if (estadoCancion == 1) {
 								cout << "LISTA LLENA" << endl;
+								duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+								mensajeAgregado = true;
 							}
 							else {
-								cout << "Ya existe" << endl;
+								duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+								mensajeAgregado = true;
 							}
+
 						}
 						//stop
 						if (tecla == '3') {
@@ -135,10 +148,19 @@ void Sistema::ejecutarSistema()
 				}
 			break;
 			}
-
-			//reproducir playlist
+			//Agregar Cancion a la playlist
 			case 2: {
-				printMenus(2);
+
+				break;
+			}
+			//Eliminar Cancion de la playlist
+			case 3: {
+
+				break;
+			}
+			//reproducir playlist
+			case 4: {
+				printMenus(4);
 				int opcion_2 = v.verificadorIngreso(2);
 				//top 10
 				if (opcion_2 == 1) {
@@ -150,17 +172,62 @@ void Sistema::ejecutarSistema()
 				}
 				break;
 			}
-			case 3: {
-				printMenus(3);
+			//buscar cancion
+			case 5: {
+				printMenus(5);
+				string cancion;
+				v.eliminarBuffer();
+				getline(cin, cancion, '\n');
+				toUpper2(cancion);
+
+				NodoLetraInicial* cancioncitaNodoLetra;
+				nodosCanciones* cancioncitaNodo;
+				Cancion* cancioncita;
+
+				try {
+					cancioncitaNodoLetra = listaCanciones->getCancion(cancion);
+					if (cancioncitaNodoLetra == NULL) {
+						cout << "No existen Canciones que inicien con esa Letra" << endl;
+						system("pause");
+						break;
+					}
+					cancioncitaNodo = cancioncitaNodoLetra->getCancionNodo(cancion);
+					if (cancioncitaNodo == NULL) {
+						cout << "No existe la Cancion " << cancion << " en el repertorio" << endl;
+						system("pause");
+						break;
+					}
+
+					cancioncita = cancioncitaNodo->Cancion;
+				}
+				catch (...) {
+					break;
+				}
+
+
+				if (cancioncita == NULL) {
+					cout << "Cancion " << cancion << " NO encontrada..." << endl;
+					system("pause");
+					break;
+				}
+				//nombre del título, el artista, género, año y la cantidad de reproducciones.
+				else {
+					cout << "Nombre: " << cancioncita->getTitulo() << endl;
+					cout << "Artista: " << cancioncita->getArtista() << endl;
+					cout << "Genero: " << cancioncita->getGenero() << endl;
+					cout << "Anno: " << cancioncita->getAnno() << endl;
+					cout << "Cantidad Reproducciones: " << cancioncita->getReproducciones() << endl;
+					system("pause");
+				}
 				break;
 			}
-			case 4: {
-				printMenus(4);
+			case 6: {
+				printMenus(6);
 				break;
 			}
 
 			//Salir ojo aca hay que actualizar archivo canciones.txt
-			case 5: {
+			case 7: {
 				cout << "Actualizado Archivo Canciones.txt...\n ADIOS :D" << endl;
 				system("pause");
 				exit(0);
@@ -178,9 +245,18 @@ void Sistema::playListT10()
 	Cancion* cancioncita = listaCanciones->getTop10()->getTopNodoT10()->cancionT10;
 	nodoT10* cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
 	listaCanciones->getTop10()->actualizarT10(cancioncita);
-	reproductor(cancioncita,1);
 	char tecla;
+	int duracionDesdeMensaje = 0;
+	bool mensajeAgregado= false;
+	reproductor(cancioncita, 1);//si es 2 ya existe
+
+
 	while (true) {
+		
+		if (mensajeAgregado && (((int)mp3.GetCurrentPosition() / 10000000)-duracionDesdeMensaje)>=2) {
+			menuReproduccion(1, cancioncita);
+			mensajeAgregado = false;
+		}
 		if (_kbhit()) {
 			tecla = _getch();
 		}
@@ -191,20 +267,27 @@ void Sistema::playListT10()
 		if (mp3.isFinal()) {
 			reproductor(cancioncita, 1);
 		}
-		//salir
+		//agregar cancion
 		if (tecla == '4') {
 			short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 			if (estadoCancion == 3) {
 				cout << "AGREGADA..." << endl;
+				duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+				mensajeAgregado = true;
+
 			}
 			else if (estadoCancion == 1) {
 				cout << "LISTA LLENA" << endl;
+				duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+				mensajeAgregado = true;
 			}
 			else {
-				cout << "Ya existe" << endl;
+				duracionDesdeMensaje = (int)mp3.GetCurrentPosition() / 10000000;
+				mensajeAgregado = true;
 			}
 			
 		}
+		//salir
 		if (tecla == '3') {
 			mp3.Stop();
 			break;
@@ -325,10 +408,12 @@ void Sistema::printMenus(float imprimir)
 		cout << "------------------------------\n" << endl;
 		cout << "Ingrese alguna opcion\n" << endl;
 		cout << "[1] Reproducir Cancion" << endl;
-		cout << "[2] Reproducir Playlist" << endl;
-		cout << "[3] Buscar Cancion" << endl;
-		cout << "[4] Estadisticas" << endl;
-		cout << "[5] Salir" << endl;
+		cout << "[2] Agregar Cancion a la playlist" << endl;
+		cout << "[3] Eliminar Cancion de la playlist" << endl;
+		cout << "[4] Reproducir Playlist" << endl;
+		cout << "[5] Buscar Cancion" << endl;
+		cout << "[6] Estadisticas" << endl;
+		cout << "[7] Salir" << endl;
 
 	}
 	//Menu reproduccion (OPCION 1)
@@ -346,7 +431,7 @@ void Sistema::printMenus(float imprimir)
 		return;
 	}
 	//Reproducir Playlist
-	if (imprimir == 2) {
+	if (imprimir == 4) {
 		system("cls");
 		cout << "Ingrese alguna opcion\n" << endl;
 		cout << "[1] Playlist TOP 10" << endl;
@@ -354,13 +439,13 @@ void Sistema::printMenus(float imprimir)
 		return;
 	}
 	//Buscar Cancion
-	if (imprimir == 3) {
+	if (imprimir == 5) {
 		system("cls");
 		cout << "Ingrese Titulo De Cancion\n : " << endl;
 		return;
 	}
 	//estadisticas
-	if (imprimir == 4) {
+	if (imprimir == 6) {
 		system("cls");
 		cout << "Creado Archivo Estadistica.txt...\n Desplegando Estadisticas\n" << endl;
 		return;
@@ -374,26 +459,14 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 	if (mp3.Load( cancionWs.c_str() ) )
 
 	{
-
 		mp3.Play();
-		system("cls");
-		if (modo == 1) {
-			cout << "-----------TOP CANCIONES-----------\n" << endl;
-		}
-		cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
-		cout << "DE : " << cancioncita->getArtista() <<"\n"<< endl;
-		if (modo == 1) {
-			cout << "Reproducciones : " << cancioncita->getReproducciones() << endl;
-		}
-		printMenus(1.5);
-		if (modo != 2) {
-			cout << "[4] Agregar a Playlist Personal" << endl;
-		}
-		else {
-			cout << "[4] Eliminar de Playlist Personal" << endl;
-		}
+
 		
+		menuReproduccion(modo, cancioncita);
+
 		return 1;
+		
+		
 	}
 	else {
 		cout << "\nCancion No encontrada" << endl;
@@ -401,3 +474,27 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 		return 0;
 	}
 }
+
+void Sistema::menuReproduccion(int modo, Cancion* cancioncita)
+{
+	system("cls");
+	if (modo == 1) {
+		cout << "-----------TOP CANCIONES-----------\n" << endl;
+	}
+	cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
+	cout << "DE : " << cancioncita->getArtista() << "\n" << endl;
+	if (modo == 1) {
+		cout << "Reproducciones : " << cancioncita->getReproducciones() << endl;
+	}
+	printMenus(1.5);
+	if (modo != 2) {
+		if(!listaPersonales->existeCancion(cancioncita)){
+			cout << "[4] Agregar a Playlist Personal" << endl;
+		}
+	}
+	else {
+		cout << "[4] Eliminar de Playlist Personal" << endl;
+	}
+}
+
+

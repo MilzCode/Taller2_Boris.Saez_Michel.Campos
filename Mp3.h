@@ -24,6 +24,9 @@ public:
 	//retorna true si es el final de la cancion
 	bool isFinal();
 
+	//metodo interno de isFinal() retorna la duracion actual del sonido donde 10,000,000 == 1 segundo
+	__int64 GetCurrentPosition();
+
 private:
 	void Cleanup();
 	IGraphBuilder* pigb;
@@ -37,7 +40,6 @@ private:
 
 	//metodo interno de isFinal() retorna la duracion total del sonido donde 10,000,000 == 1 segundo
 	__int64 GetDuration();
-	//metodo interno de isFinal() retorna la duracion actual del sonido donde 10,000,000 == 1 segundo
-	__int64 GetCurrentPosition();
+
 
 };

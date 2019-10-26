@@ -105,6 +105,21 @@ bool ListaPersonal::eliminarCancionP(Cancion* cancioncita)
 
 }
 
+bool ListaPersonal::existeCancion(Cancion* cancioncita)
+{
+	nodoP* n = primer;
+	//si la cancion ya se encuentra en la lista personal
+	for (int a = 0; a < cantActual; a++) {
+		if (n->cancionP == cancioncita) {
+			return true;
+		}
+		if (n->siguiente != NULL) {
+			n = n->siguiente;
+		}
+	}
+	return false;
+}
+
 nodoP* ListaPersonal::getPrimerNodoP()
 {
 	return primer;
