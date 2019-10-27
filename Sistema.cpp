@@ -579,6 +579,10 @@ void Sistema::actualizarCanciones(string nombreArchivo, char separador)
 		exit(1);
 	}
 	NodoLetraInicial* letra = listaCanciones->getPrimeraLetra();
+	if (letra == NULL) {
+		archivo.close(); //Cerramos el archivo
+		return;
+	}
 	nodosCanciones* cancionNodo = letra->getCancionNodoPrimera();
 	bool inicio = true;
 	while(letra != NULL) {
