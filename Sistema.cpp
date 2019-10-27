@@ -280,8 +280,11 @@ void Sistema::ejecutarSistema()
 
 void Sistema::playListT10()
 {
-	Cancion* cancioncita = listaCanciones->getTop10()->getTopNodoT10()->cancionT10;
 	nodoT10* cancioncitaNodo = listaCanciones->getTop10()->getTopNodoT10();
+	if (cancioncitaNodo == NULL) {
+		return;
+	}
+	Cancion* cancioncita = cancioncitaNodo->cancionT10;	
 	listaCanciones->getTop10()->actualizarT10(cancioncita);
 	listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);//para agregar 1 reproduccion
 	char tecla;
