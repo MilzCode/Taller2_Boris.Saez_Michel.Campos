@@ -44,5 +44,6 @@ private:
 	void escribirArchivoEstadisticas(string nombreArchivo, char separador);
 	void actualizarCanciones(string nombreArchivo, char separador);
 	Trim trim;
+	Cancion* buscarCancionPorNombre();
 };
 

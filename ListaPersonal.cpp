@@ -56,7 +56,7 @@ short ListaPersonal::agregarCancionP(Cancion* cancioncita)
 
 bool ListaPersonal::eliminarCancionP(Cancion* cancioncita)
 {
-	if (cantActual == 0) {
+	if (primer == NULL) {
 		return false;
 	}
 	nodoP* n = primer;

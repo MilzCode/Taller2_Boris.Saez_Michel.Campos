@@ -30,6 +30,7 @@ void Sistema::ejecutarSistema()
 				v.eliminarBuffer();
 				getline(cin, cancion, '\n');
 				toUpper2(cancion);
+				cancion = trim.trim(cancion);
 
 				cout << cancion << endl;
 
@@ -154,11 +155,30 @@ void Sistema::ejecutarSistema()
 			}
 			//Agregar Cancion a la playlist
 			case 2: {
+				Cancion* cancioncita = buscarCancionPorNombre();
+				if (cancioncita != NULL) {
+					short estadoAgregado = listaPersonales->agregarCancionP(cancioncita);
+					if (estadoAgregado == 2) {
+						cout << "CANCION YA EXISTE EN PLAYLIST" << endl;
+					}
+					else if (estadoAgregado == 1) {
+						cout << "LISTA LLENA!" << endl;
+					}
+					else {
+						cout << "AGREGADA..." << endl;
+					}
+					system("pause");
+				}
 
 				break;
 			}
 			//Eliminar Cancion de la playlist
 			case 3: {
+				Cancion* cancioncita = buscarCancionPorNombre();
+				if (cancioncita != NULL) {
+					listaPersonales->eliminarCancionP(cancioncita);
+				}
+				system("pause");
 
 				break;
 			}
@@ -183,6 +203,7 @@ void Sistema::ejecutarSistema()
 				v.eliminarBuffer();
 				getline(cin, cancion, '\n');
 				toUpper2(cancion);
+				cancion = trim.trim(cancion);
 
 				NodoLetraInicial* cancioncitaNodoLetra;
 				nodosCanciones* cancioncitaNodo;
@@ -233,7 +254,7 @@ void Sistema::ejecutarSistema()
 				}
 				printMenus(6);
 				while(n!=NULL){
-					cout << n->genero << " Cantidad de Reproducciones = " << n->cantidadReproducciones << endl;
+					cout << n->genero << "," << n->cantidadReproducciones << endl;
 					n = n->siguiente;
 				}
 				escribirArchivoEstadisticas("Estadisticas.txt", ',');
@@ -585,6 +606,49 @@ void Sistema::actualizarCanciones(string nombreArchivo, char separador)
 	}
 
 	archivo.close(); //Cerramos el archivo
+}
+
+Cancion* Sistema::buscarCancionPorNombre()
+{
+	printMenus(5);
+	string cancion;
+	v.eliminarBuffer();
+	getline(cin, cancion, '\n');
+	toUpper2(cancion);
+	cancion = trim.trim(cancion);
+
+
+	NodoLetraInicial* cancioncitaNodoLetra;
+	nodosCanciones* cancioncitaNodo;
+	Cancion* cancioncita;
+
+	try {
+		cancioncitaNodoLetra = listaCanciones->getCancion(cancion);
+		if (cancioncitaNodoLetra == NULL) {
+			cout << "No existen Canciones que inicien con esa Letra" << endl;
+			system("pause");
+			return NULL;
+		}
+		cancioncitaNodo = cancioncitaNodoLetra->getCancionNodo(cancion);
+		if (cancioncitaNodo == NULL) {
+			cout << "No existe la Cancion " << cancion << " en el repertorio" << endl;
+			system("pause");
+			return NULL;
+		}
+
+		cancioncita = cancioncitaNodo->Cancion;
+	}
+	catch (...) {
+		return NULL;
+	}
+
+
+	if (cancioncita == NULL) {
+		cout << "Cancion " << cancion << " NO encontrada..." << endl;
+		system("pause");
+		return NULL;
+	}
+	return cancioncita;
 }
 
 
