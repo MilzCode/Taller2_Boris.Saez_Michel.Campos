@@ -19,6 +19,7 @@ private:
 
 
 	//para Cambiar directorio de cancion llenar "" pero en vez de <\> poner </> ej: C:/hola/  , no olividar ademas dejar / al final
+	//esto SOLO MODIFICA LA UBICACION DE LOS MP3 MAS NO la ubicacion de canciones.txt esto editar en listaCancionesInicial.h
 	string directorioCanciones = "";
 
 public:

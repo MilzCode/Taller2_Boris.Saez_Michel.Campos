@@ -36,5 +36,8 @@ private:
 	//ACCEDE A UNA SUBLISTA DE INICIALES INGRESANDO LA CANCION EN UNA DE ESAS LISTAS POR ORDEN ALFABETICO
 	void agregarCancion(string _titulo, string _artista, string _genero, string _anno, int _reproducciones);
 	Trim trim;
+	//para Cambiar directorio de archivos (canciones.txt) llenar "" pero en vez de <\> poner </> ej: C:/hola/  , no olividar ademas dejar / al final
+	//recuerda cambiar directorio de cancion.h ya que esto solo cambia el directorio del archivo cancion.txt mas no de las canciones.mp3
+	string directorioCancionesTxt = "";
 };
 

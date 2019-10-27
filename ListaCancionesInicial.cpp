@@ -3,7 +3,7 @@
 ListaCancionesInicial::ListaCancionesInicial()
 {
 	primer = NULL;
-	string archivoCanciones = "Canciones.txt";
+	string archivoCanciones = directorioCancionesTxt+"Canciones.txt";
 	if (lecturaCanciones(archivoCanciones)) {
 		cout << "Lectura Correcta de " << archivoCanciones << endl;
 	}
