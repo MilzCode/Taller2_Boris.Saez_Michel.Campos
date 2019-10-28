@@ -379,7 +379,8 @@ void Sistema::personalPlaylist()
 	Cancion* cancioncita = nodoCancioncita->cancionP;
 	listaCanciones->getTop10()->actualizarT10(cancioncita);
 	listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-	reproductor(cancioncita, 2);
+	int encontrada;
+	encontrada = reproductor(cancioncita, 2);
 	char tecla;
 	while (true) {
 		if (_kbhit()) {
@@ -390,10 +391,10 @@ void Sistema::personalPlaylist()
 		}
 		//si termino reproduce de nuevo
 		if (mp3.isFinal()) {
-			reproductor(cancioncita, 2);
+			encontrada = reproductor(cancioncita, 2);
 		}
 		//eliminar
-		if (tecla == '4') {
+		if (tecla == '4' || encontrada == 0) {
 			mp3.Stop();
 			if (listaPersonales->eliminarCancionP(cancioncita)) {
 				cout << "ELIMINADA" << endl;
@@ -401,7 +402,7 @@ void Sistema::personalPlaylist()
 			if (listaPersonales->getPrimerNodoP() == NULL) {
 				return;
 			}
-			reproductor(listaPersonales->getPrimerNodoP()->cancionP, 2);
+			encontrada = reproductor(listaPersonales->getPrimerNodoP()->cancionP, 2);
 			nodoCancioncita = listaPersonales->getPrimerNodoP();
 			cancioncita = nodoCancioncita->cancionP;
 			
@@ -422,7 +423,7 @@ void Sistema::personalPlaylist()
 			}
 			cancioncita = nodoCancioncita->cancionP;
 			listaCanciones->getTop10()->actualizarT10(cancioncita);
-			reproductor(cancioncita, 2);
+			encontrada = reproductor(cancioncita, 2);
 			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 			
 		}
@@ -437,7 +438,7 @@ void Sistema::personalPlaylist()
 			cancioncita = nodoCancioncita->cancionP;
 			listaCanciones->getTop10()->actualizarT10(cancioncita);
 			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-			reproductor(cancioncita, 2);
+			encontrada = reproductor(cancioncita, 2);
 		}
 	}
 
@@ -518,8 +519,17 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 		
 	}
 	else {
-		cout << "\nCancion No encontrada" << endl;
-		system("pause");
+		system("cls");
+		if(cancioncita!=NULL){
+			cout << "\nCancion : "<<cancioncita->getTitulo()<<".mp3 "<<"NO ENCONTRADA!" << endl;
+		}
+		else {
+			cout << "CANCION NO ENCONTRADA!" << endl;
+		}
+		cout << "[1] SIGUIENTE" << endl;
+		cout << "[2] ANTERIOR" << endl;
+		cout << "[3] SALIR" << endl;
+		//system("pause");
 		return 0;
 	}
 }
