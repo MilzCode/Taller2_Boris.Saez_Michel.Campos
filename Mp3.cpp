@@ -108,6 +108,7 @@ bool Mp3::Stop()
 
 __int64 Mp3::GetDuration()
 {
+
 	return duration;
 }
 

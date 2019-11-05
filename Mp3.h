@@ -27,6 +27,8 @@ public:
 	//metodo interno de isFinal() retorna la duracion actual del sonido donde 10,000,000 == 1 segundo
 	__int64 GetCurrentPosition();
 
+	//metodo interno de isFinal() retorna la duracion total del sonido donde 10,000,000 == 1 segundo
+	__int64 GetDuration();
 private:
 	void Cleanup();
 	IGraphBuilder* pigb;
@@ -38,8 +40,7 @@ private:
 	// duracion del mp3
 	__int64 duration;
 
-	//metodo interno de isFinal() retorna la duracion total del sonido donde 10,000,000 == 1 segundo
-	__int64 GetDuration();
-
+	
+	
 
 };
