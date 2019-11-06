@@ -4,7 +4,7 @@ using namespace std;
 
 struct nodoG {
 	string genero;
-	int cantidadReproducciones;
+	unsigned int cantidadReproducciones;
 	nodoG* siguiente;
 	nodoG* anterior;
 };
