@@ -83,7 +83,7 @@ bool ListaCancionesInicial::lecturaCanciones(string nombreArchivo)
 		string anno;
 		string _reproducciones;//parsearlo a int
 
-		int reproducciones;
+		unsigned int reproducciones;
 
 		getline(archivo, titulo, ',');
 		getline(archivo, artista, ',');
