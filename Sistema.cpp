@@ -1,5 +1,6 @@
 #include "Sistema.h"
 
+
 Sistema::Sistema()
 {
 	listaCanciones = new ListaCancionesInicial();
@@ -73,6 +74,8 @@ void Sistema::ejecutarSistema()
 					while (true) {
 						if (mensajeAgregado && (((int)mp3.GetCurrentPosition() / 10000000) - duracionDesdeMensaje) >= 2) {
 							menuReproduccion(0, cancioncita);
+
+							
 							mensajeAgregado = false;
 						}
 						if (_kbhit()) {
@@ -298,6 +301,7 @@ void Sistema::playListT10()
 		if (mensajeAgregado && (((int)mp3.GetCurrentPosition() / 10000000)-duracionDesdeMensaje)>=2) {
 			menuReproduccion(1, cancioncita);
 			mensajeAgregado = false;
+			
 		}
 		if (_kbhit()) {
 			tecla = _getch();
@@ -474,10 +478,13 @@ void Sistema::printMenus(float imprimir)
 	}
 	//Menu reproduccion(CONTROLES)
 	if (imprimir == 1.5) {
+
 		cout << "Ingrese alguna opcion\n" << endl;
 		cout << "[1] Siguiente" << endl;
 		cout << "[2] Anterior" << endl;
 		cout << "[3] Stop" << endl;
+		
+		
 		return;
 	}
 	//Reproducir Playlist
@@ -510,9 +517,11 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 
 	{
 		mp3.Play();
-
+		
+		
 		
 		menuReproduccion(modo, cancioncita);
+		barraMusica((mp3.GetDuration())/10000000);
 
 		return 1;
 		
@@ -529,7 +538,7 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 		cout << "[1] SIGUIENTE" << endl;
 		cout << "[2] ANTERIOR" << endl;
 		cout << "[3] SALIR" << endl;
-		//system("pause");
+		
 		return 0;
 	}
 }
@@ -542,6 +551,7 @@ void Sistema::menuReproduccion(int modo, Cancion* cancioncita)
 	}
 	cout << "ESCUCHAS : " << cancioncita->getTitulo() << endl;
 	cout << "DE : " << cancioncita->getArtista() << "\n" << endl;
+	
 	if (modo == 1) {
 		cout << "Reproducciones : " << cancioncita->getReproducciones() << endl;
 	}
@@ -666,6 +676,96 @@ Cancion* Sistema::buscarCancionPorNombre()
 		return NULL;
 	}
 	return cancioncita;
+}
+/*Metodo que imprime la barra de acuerdo a la duracion de la cancion,
+siendo del mismo tamanio pero carga mas lento o mas rapido segun la
+duracion de la cancion (parametro de entrada)*/
+void Sistema::barraMusica(long duracion) {
+	int i;
+
+	gotoxy(0, 13);//lateral iz
+	printf("%c", 186);
+
+	gotoxy(100
+		, 13);//lateral derecho
+	printf("%c", 186);
+
+	gotoxy(0, 12);//esquina iz arriba
+	printf("%c", 201);
+
+	gotoxy(0, 14);//esquina iz abajo
+	printf("%c", 200);
+	
+	//lado arriba
+	for (int i = 1; i < 100; i++) {
+		gotoxy(i, 12);
+		printf("%c", 205);
+	}
+	//lado abajo
+	for (int i = 1; i < 100; i++) {
+		gotoxy(i, 14);
+		printf("%c", 205);
+	}
+
+	gotoxy(100, 12);//esquina derecha arriba
+	printf("%c", 187);
+
+	gotoxy(100, 14);//esquina iz abajo
+	printf("%c", 188);
+
+/*
+    //CON ESTE HAY QUE APRETAR 2 VECES 1 O 2 O 3 4 EN EL REPRODUCTOR, pero no se para con cualquier otra entrada de teclado
+	char tecla = 'p';
+	//Barra
+	for (i = 1; i < 100; i++)
+	{
+
+		if (_kbhit()) {
+			tecla = _getch();
+
+		}
+
+		if (tecla != '1' && tecla != '2' && tecla != '3' && tecla != '4') {
+
+			
+			gotoxy(i, 13);
+			printf("%c", 177);
+			Sleep(duracion * 10.1920);//duracion de la cancion por valor calculado en lo que se demora en cargar la barra con 1000 sleep
+			
+		}
+		else {
+			break;
+		}
+
+	
+
+	}*/
+
+    //CON ESTE NO HAY QUE APRETAR 2 VECES , PERO SE PARA la barra CON CUALQUIER ENTRADA DE TECLADO
+	for (i = 1; i < 100; i++)
+	{
+
+		while (!_kbhit()) {
+
+			gotoxy(i, 13);
+			printf("%c", 177);
+			Sleep(duracion * 10.1920);//duracion de la cancion por valor calculado en lo que se demora en cargar la barra con 1000 sleep
+			break;
+		}
+
+	}
+
+
+
+}
+// submetodo que permite posicionarnos en (x,y) en la consola para la impresion que prosigue usado en barraMusica
+void Sistema::gotoxy(int x, int y) {
+	HANDLE hcon;
+	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD dwPos;
+	dwPos.X = x;
+	dwPos.Y = y;
+	SetConsoleCursorPosition(hcon, dwPos);
 }
 
 
