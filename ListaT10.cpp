@@ -128,12 +128,18 @@ void ListaT10::agregarCancionT10(Cancion* cancion)
 		//si coinciden con alguna cantidad de reproducciones
 		if (cancion->getReproducciones() == buscando->cancionT10->getReproducciones()) {
 			n->cancionT10 = cancion;
-			n->siguiente = buscando->siguiente;
+			nodoT10* siguiente = buscando->siguiente;
 			if (buscando->siguiente != NULL) {
-				(buscando->siguiente)->anterior = n;
+				siguiente->anterior = n;
+				n->siguiente = siguiente;
+			}
+			else {
+				ultimo = n;
+				n->siguiente = NULL;
 			}
 			buscando->siguiente = n;
 			n->anterior = buscando;
+
 			cantActual++;
 			eliminarUltimo();
 			return;

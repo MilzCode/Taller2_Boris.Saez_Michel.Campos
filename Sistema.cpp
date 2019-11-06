@@ -69,7 +69,8 @@ void Sistema::ejecutarSistema()
 					listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
 					int duracionDesdeMensaje = 0;
 					bool mensajeAgregado = false;
-					reproductor(cancioncita,0);
+					int encontrada;
+					encontrada = reproductor(cancioncita,0);
 					char tecla;
 					while (true) {
 						if (mensajeAgregado && (((int)mp3.GetCurrentPosition() / 10000000) - duracionDesdeMensaje) >= 2) {
@@ -86,10 +87,10 @@ void Sistema::ejecutarSistema()
 						}
 						//si termino reproduce de nuevo
 						if (mp3.isFinal()) {
-							reproductor(cancioncita, 0);
+							encontrada = reproductor(cancioncita, 0);
 						}
 						//agregar cancion
-						if (tecla == '4') {
+						if (tecla == '4' && encontrada!=0) {
 							short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 							if (estadoCancion == 3) {
 								cout << "AGREGADA..." << endl;
@@ -130,7 +131,7 @@ void Sistema::ejecutarSistema()
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
 							cancioncita = cancioncitaNodo->Cancion;
 							listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-							reproductor(cancioncitaNodo->Cancion,0);
+							encontrada = reproductor(cancioncitaNodo->Cancion,0);
 						}
 						//anterior
 						if (tecla == '2') {
@@ -149,7 +150,7 @@ void Sistema::ejecutarSistema()
 							listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->Cancion);
 							cancioncita = cancioncitaNodo->Cancion;
 							listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-							reproductor(cancioncitaNodo->Cancion,0);
+							encontrada = reproductor(cancioncitaNodo->Cancion,0);
 						}
 
 					}
@@ -293,7 +294,8 @@ void Sistema::playListT10()
 	char tecla;
 	int duracionDesdeMensaje = 0;
 	bool mensajeAgregado= false;
-	reproductor(cancioncita, 1);//si es 2 ya existe
+	int encontrada;
+	encontrada = reproductor(cancioncita, 1);//si es 2 ya existe
 
 
 	while (true) {
@@ -311,10 +313,10 @@ void Sistema::playListT10()
 		}
 		//si termino reproduce de nuevo
 		if (mp3.isFinal()) {
-			reproductor(cancioncita, 1);
+			encontrada = reproductor(cancioncita, 1);
 		}
 		//agregar cancion
-		if (tecla == '4') {
+		if (tecla == '4' && encontrada != 0) {
 			short estadoCancion = listaPersonales->agregarCancionP(cancioncita);
 			if (estadoCancion == 3) {
 				cout << "AGREGADA..." << endl;
@@ -351,7 +353,7 @@ void Sistema::playListT10()
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
 			cancioncita = cancioncitaNodo->cancionT10;
 			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-			reproductor(cancioncitaNodo->cancionT10,1);
+			encontrada = reproductor(cancioncitaNodo->cancionT10,1);
 		}
 		//anterior
 		if (tecla == '2') {
@@ -366,7 +368,7 @@ void Sistema::playListT10()
 			listaCanciones->getTop10()->actualizarT10(cancioncitaNodo->cancionT10);
 			cancioncita = cancioncitaNodo->cancionT10;
 			listaCanciones->getListaGeneros()->agregarGenero(cancioncita->getGenero(), 1);
-			reproductor(cancioncitaNodo->cancionT10,1);
+			encontrada = reproductor(cancioncitaNodo->cancionT10,1);
 		}
 
 	}
@@ -521,7 +523,6 @@ int Sistema::reproductor(Cancion* cancioncita, int modo)
 		
 		
 		menuReproduccion(modo, cancioncita);
-		barraMusica((mp3.GetDuration())/10000000);
 
 		return 1;
 		
@@ -677,95 +678,7 @@ Cancion* Sistema::buscarCancionPorNombre()
 	}
 	return cancioncita;
 }
-/*Metodo que imprime la barra de acuerdo a la duracion de la cancion,
-siendo del mismo tamanio pero carga mas lento o mas rapido segun la
-duracion de la cancion (parametro de entrada)*/
-void Sistema::barraMusica(long duracion) {
-	int i;
-
-	gotoxy(0, 13);//lateral iz
-	printf("%c", 186);
-
-	gotoxy(100
-		, 13);//lateral derecho
-	printf("%c", 186);
-
-	gotoxy(0, 12);//esquina iz arriba
-	printf("%c", 201);
-
-	gotoxy(0, 14);//esquina iz abajo
-	printf("%c", 200);
-	
-	//lado arriba
-	for (int i = 1; i < 100; i++) {
-		gotoxy(i, 12);
-		printf("%c", 205);
-	}
-	//lado abajo
-	for (int i = 1; i < 100; i++) {
-		gotoxy(i, 14);
-		printf("%c", 205);
-	}
-
-	gotoxy(100, 12);//esquina derecha arriba
-	printf("%c", 187);
-
-	gotoxy(100, 14);//esquina iz abajo
-	printf("%c", 188);
-
-/*
-    //CON ESTE HAY QUE APRETAR 2 VECES 1 O 2 O 3 4 EN EL REPRODUCTOR, pero no se para con cualquier otra entrada de teclado
-	char tecla = 'p';
-	//Barra
-	for (i = 1; i < 100; i++)
-	{
-
-		if (_kbhit()) {
-			tecla = _getch();
-
-		}
-
-		if (tecla != '1' && tecla != '2' && tecla != '3' && tecla != '4') {
-
-			
-			gotoxy(i, 13);
-			printf("%c", 177);
-			Sleep(duracion * 10.1920);//duracion de la cancion por valor calculado en lo que se demora en cargar la barra con 1000 sleep
-			
-		}
-		else {
-			break;
-		}
-
-	
-
-	}*/
-
-    //CON ESTE NO HAY QUE APRETAR 2 VECES , PERO SE PARA la barra CON CUALQUIER ENTRADA DE TECLADO
-	for (i = 1; i < 100; i++)
-	{
-
-		while (!_kbhit()) {
-
-			gotoxy(i, 13);
-			printf("%c", 177);
-			Sleep(duracion * 10.1920);//duracion de la cancion por valor calculado en lo que se demora en cargar la barra con 1000 sleep
-			break;
-		}
-
-	}
 
 
-
-}
-// submetodo que permite posicionarnos en (x,y) en la consola para la impresion que prosigue usado en barraMusica
-void Sistema::gotoxy(int x, int y) {
-	HANDLE hcon;
-	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD dwPos;
-	dwPos.X = x;
-	dwPos.Y = y;
-	SetConsoleCursorPosition(hcon, dwPos);
-}
 
 

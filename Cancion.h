@@ -14,7 +14,7 @@ private:
 	string artista;
 	string genero;
 	string anno;
-	int reproducciones;
+	unsigned int reproducciones;
 	const string formato = ".mp3";// NO CAMBIAR ESTO!!
 
 

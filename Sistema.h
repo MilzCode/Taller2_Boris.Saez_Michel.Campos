@@ -4,8 +4,6 @@
 #include "VerificadorIngreso.h"
 #include "ListaPersonal.h"
 
-
-#include <windows.h>
 #include <string>
 #include <iostream>
 
@@ -45,8 +43,6 @@ private:
 	void actualizarCanciones(string nombreArchivo, char separador);
 	Trim trim;
 	Cancion* buscarCancionPorNombre();
-	void barraMusica(long duracionMusica);
-	void gotoxy(int x, int y);
 
 };
 
